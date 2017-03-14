@@ -17,5 +17,10 @@ class FingerPrintScanner():
 
     def initialize(self):
         fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9600, timeout=2, is_com=False)
-        fps.SetLED(True)
-        time.sleep(2)
+        counter = 1
+        while counter<5:
+            fps.SetLED(True)
+            time.sleep(2)
+            fps.SetLED(False)
+            time.sleep(2)
+            counter = counter+1
