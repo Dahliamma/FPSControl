@@ -1,11 +1,48 @@
 pyGT511C3
 =========
 
+subtree from DrBundles
+git subtree --prefix scanner https://github.com/DrBundles/pyGT511C3 master
+
+Important Info for RPi 3 setup
+==============================
+First disable bluetooth from using /dev/ttyAMA0 in /boot/config.txt
+
+```
+sudo vim /boot/config.txt
+```
+Add to the end of the file
+
+```
+dtoverlay=pi3-disable-bt
+```
+
+Reboot the pi
+
+```
+sudo reboot
+```
+
+Disable the serial console using
+
+```
+sudo vim /boot/cmdline.txt
+
+```
+Remove the word *console=serial0,115200* or *console-ttyAMA0,115200*
+____________
+
+
+Original README file
+====================
+
 Python driver for Fingerprint Scanner - TTL (GT-511C3)
 
 https://www.sparkfun.com/products/11792
 
 This is the Python Non Official Version for Sparkfun GT511C3 Fingerprint Scanner
+____________
+###From Website
 
 I was made a payment application that uses this fingerprint scanner in a computer version for Windows and Mac and I encountered that Sparkfun don't have a python driver demo or example for this device
 

@@ -9,6 +9,8 @@ import serial
 from serial.tools import list_ports
 import time
 import binascii
+import pdb
+
 MAX_FINGER=200
 def delay(seconds):
     '''
@@ -43,7 +45,8 @@ def devices(index=None):
 if os.name == 'nt':
     DEVICE_NAME = 'COM3'
 else:
-    DEVICE_NAME = '/dev/cu.usbserial-A601EQ14'  #default device to use
+    #DEVICE_NAME = '/dev/cu.usbserial-A601EQ14'  #default device to use
+    DEVICE_NAME = '/dev/ttyS0'
 
 def isFingerPrintConnected(is_com=True):
     '''
@@ -216,7 +219,7 @@ class Response_Packet(Packet):
             self.RawBytes = _buffer
             self._lastBuffer = bytes(_buffer)
             if self.UseSerialDebug:
-                print 'readed: %s'% self.serializeToSend(_buffer)
+                print 'Response Buffer Read: %s'% self.serializeToSend(_buffer)
             if _buffer.__len__()>=12:
                 self.ACK = True if _buffer[8] == 0x30 else False
                 self.ParameterBytes[0] = _buffer[4]
@@ -283,6 +286,8 @@ def connect(device_name=None,baud=None,timeout=None,is_com=True):
         timeout = 10000
     if isFingerPrintConnected(is_com):
         try:
+            #print "In connect"
+            #pdb.set_trace()
             _ser = serial.Serial(device_name,baudrate=baud,timeout=timeout)
             if not _ser.isOpen():
                 _ser.open()
@@ -313,6 +318,8 @@ class FPS_GT511C3(SerialCommander):
         self._device_name = device_name
         self._baud=baud
         self._timeout = timeout
+        #set trace
+        #pdb.set_trace()
         self._serial = connect(device_name,baud,timeout,is_com=is_com)
         if not self._serial is None:
             delay(0.1)
@@ -326,14 +333,21 @@ class FPS_GT511C3(SerialCommander):
             Initialises the device and gets ready for commands
         '''
         self.ChangeBaudRate(BAUD)
-        delay(0.1)
+        delay(0.5)
         cp = Command_Packet('Open',UseSerialDebug=self.UseSerialDebug)
         cp.ParameterFromInt(1)
         packetbytes = cp.GetPacketBytes()
+        #print 'Command packetbytes: '+ packetbytes
+        #pdb.set_trace()
         self.SendCommand(packetbytes, 12)
+        #delay(2)
+        delay(0.5)
         rp = self.GetResponse()
+        rp_ACK = rp.ACK
+        del cp
+        del rp
         del packetbytes
-        return rp.ACK
+        return rp_ACK
         
     
     def Close(self):
@@ -349,10 +363,13 @@ class FPS_GT511C3(SerialCommander):
         packetbytes = cp.GetPacketBytes()
         self.SendCommand(packetbytes, 12)
         rp = self.GetResponse()
+        rp_ACK = rp.ACK
         if not self._serial is None:
             self._serial.close()
+        del cp
+        del rp
         del packetbytes
-        return rp.ACK
+        return rp_ACK
     
     def SetLED(self,on=True):
         '''
@@ -368,8 +385,13 @@ class FPS_GT511C3(SerialCommander):
         cp.Parameter[3] = 0x00;
         packetbytes = cp.GetPacketBytes()
         self.SendCommand(packetbytes, 12)
+        #delay(2)
         rp = self.GetResponse()
+        # Print response
+        print 
         retval = rp.ACK
+        #SL should I del cp after use ??????????????
+        del cp
         del rp
         del packetbytes
         return retval
@@ -753,11 +775,13 @@ class FPS_GT511C3(SerialCommander):
             Data_Packet GetNextDataPacket();
         '''
         if not self._serial is None:
+            #print 'In SendCommand()'
+            #pdb.set_trace()
             self._serial.write(bytes(cmd))
             if self.UseSerialDebug:
                 print self.serializeToSend(cmd)
-                print bytes(cmd)
-                print repr(bytes(cmd))[1:-1]
+                #print bytes(cmd)
+                #print repr(bytes(cmd))[1:-1]
         else:
             if self.UseSerialDebug:
                 print '[SendCommand] No es posible escribir en %s' % self._device_name
@@ -773,17 +797,26 @@ class FPS_GT511C3(SerialCommander):
             print '[GetResponse] No es posible leer desde: %s' % self._device_name
         else:
             r = bytearray(self._serial.read(self._serial.inWaiting()))
+            #r = bytearray(self._serial.read(12))
+            # Print buffer
+            #print 'print buffer: %s'% self.serializeToSend(r)
+            #print 'print buffer raw: ' + r
+            #for i in r:
+            #  print 'r: %s'% hex(i)
+            #print 'Packet size: %i'% len(r)
             rp = Response_Packet(r,self.UseSerialDebug)
-        
-        if rp.ACK:
-            delay(interval)
-            r2 = bytearray(self._serial.read(self._serial.inWaiting()))
-            rp2 = Response_Packet(r2,self.UseSerialDebug)
-            while str(rp2._lastBuffer).__len__()>0:
-                rp.RawBytes.extend(rp2.RawBytes)
-                rp._lastBuffer += rp2._lastBuffer
-                delay(interval)
-                r2 = bytearray(self._serial.read(self._serial.inWaiting()))
-                rp2 = Response_Packet(r2,self.UseSerialDebug)
-        self._lastResponse = rp
+
+# SL - unknown the purpose of this code for obtaining an additional response packet 
+#   after the initial response packet has already been fetched
+#        if rp.ACK:
+#            delay(interval)
+#            r2 = bytearray(self._serial.read(self._serial.inWaiting()))
+#            rp2 = Response_Packet(r2,self.UseSerialDebug)
+#            while str(rp2._lastBuffer).__len__()>0:
+#                rp.RawBytes.extend(rp2.RawBytes)
+#                rp._lastBuffer += rp2._lastBuffer
+#                delay(interval)
+#                r2 = bytearray(self._serial.read(self._serial.inWaiting()))
+#                rp2 = Response_Packet(r2,self.UseSerialDebug)
+#        self._lastResponse = rp
         return rp
