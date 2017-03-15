@@ -3,6 +3,7 @@ Fingerprint Class
 """
 import FPS as FPS
 from time import *
+
 class FingerPrintScanner():
     """
     FingerPrintScanner Class
@@ -16,7 +17,9 @@ class FingerPrintScanner():
         self.initialize
 
     def initialize(self):
+        print('Begin')
         fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9600, timeout=2, is_com=False)
+        print('Scanner connected')
         counter = 1
         while counter<5:
             fps.SetLED(True)
