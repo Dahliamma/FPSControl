@@ -32,3 +32,6 @@ class FingerPrintScanner():
             time.sleep(2)
             print ('Off')
             counter = counter+1
+
+if __name__ == "__main__":
+    test_fps = FingerPrintScanner()
