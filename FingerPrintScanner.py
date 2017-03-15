@@ -3,7 +3,7 @@ Fingerprint Class
 """
 import FPS as FPS
 print('Imported FPS')
-from time import *
+import time as time
 print('Imported time')
 
 class FingerPrintScanner():
