@@ -2,7 +2,9 @@
 Fingerprint Class
 """
 import FPS as FPS
+print('Imported FPS')
 from time import *
+print('Imported time')
 
 class FingerPrintScanner():
     """
@@ -14,6 +16,7 @@ class FingerPrintScanner():
 
     def __init__(self):
         self._status = 0;
+        print('Starting initialization')
         self.initialize
 
     def initialize(self):
