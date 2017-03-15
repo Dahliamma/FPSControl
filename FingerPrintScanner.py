@@ -21,6 +21,8 @@ class FingerPrintScanner():
         while counter<5:
             fps.SetLED(True)
             time.sleep(2)
+            print ('On')
             fps.SetLED(False)
             time.sleep(2)
+            print ('Off')
             counter = counter+1
