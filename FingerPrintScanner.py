@@ -26,10 +26,10 @@ class FingerPrintScanner():
         counter = 1
         while counter<5:
             fps.SetLED(True)
-            time.sleep(2)
+            time.sleep(0.5)
             print ('On')
             fps.SetLED(False)
-            time.sleep(2)
+            time.sleep(0.5)
             print ('Off')
             counter = counter+1
 
