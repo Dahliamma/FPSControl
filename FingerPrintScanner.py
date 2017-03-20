@@ -18,6 +18,7 @@ class FingerPrintScanner():
         self._status = 0
         print('Starting initialization')
         self.initialize()
+        self._image = 0
 
     def initialize(self):
         print('Begin')
@@ -34,7 +35,7 @@ class FingerPrintScanner():
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         fps.CaptureFinger(True)
-        self.image = fps.GetImage()
+        self._image = fps.GetImage()
         fps.SetLED(False)
 
 if __name__ == "__main__":
