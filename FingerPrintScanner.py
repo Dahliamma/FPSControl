@@ -23,8 +23,8 @@ class FingerPrintScanner():
         print('Begin')
         fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9600, timeout=2, is_com=False)
         print('Scanner connected')
+        print(fps.IsPressFinger())
         while not fps.IsPressFinger():
-            print(fps.IsPressFinger())
             print('Place finger on scanner.')
             for i in range(5):
                 fps.SetLED(True)
