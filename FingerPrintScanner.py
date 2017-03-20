@@ -24,14 +24,17 @@ class FingerPrintScanner():
         fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9600, timeout=2, is_com=False)
         print('Scanner connected')
         counter = 1
-        while counter<5:
-            fps.SetLED(True)
-            time.sleep(0.5)
-            print ('On')
-            fps.SetLED(False)
-            time.sleep(0.5)
-            print ('Off')
-            counter = counter+1
+        while not fps.IsPressFinger():
+            print('Place finger on scanner.')
+            for i in range(5):
+                fps.SetLED(True)
+                time.sleep(0.1)
+                fps.SetLED(False)
+                time.sleep(0.1)
+        print('Thank you for touching me.')
+        print('Capturing fingerprint.')
+        fps.CaptureFinger(True)
+        fps.GetImage()
 
 if __name__ == "__main__":
     test_fps = FingerPrintScanner()
