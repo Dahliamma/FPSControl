@@ -3,8 +3,8 @@ Fingerprint Class
 """
 import FPS as FPS
 print('Imported FPS')
-import time as time
-print('Imported time')
+#import time as time
+#print('Imported time')
 
 class FingerPrintScanner():
     """
@@ -34,7 +34,7 @@ class FingerPrintScanner():
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         fps.CaptureFinger(True)
-        fps.GetImage()
+        self.image = fps.GetImage()
         fps.SetLED(False)
 
 if __name__ == "__main__":
