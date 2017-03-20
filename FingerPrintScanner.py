@@ -26,13 +26,14 @@ class FingerPrintScanner():
         print(fps.IsPressFinger())
         FPS.delay(1)
         fps.SetLED(True)
+        print('Place finger on scanner.')
         while not fps.IsPressFinger():
-            print('Place finger on scanner.')
             for i in range(1):
                 fps.SetLED(False)
                 time.sleep(0.5)
                 fps.SetLED(True)
                 time.sleep(0.5)
+            print('Place finger on scanner.')
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         fps.CaptureFinger(True)
