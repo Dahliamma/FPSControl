@@ -22,6 +22,7 @@ class FingerPrintScanner():
     def initialize(self):
         print('Begin')
         fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9600, timeout=2, is_com=False)
+        fps.UseSerialDebug = False
         print('Scanner connected')
         print(fps.IsPressFinger())
         FPS.delay(1)
