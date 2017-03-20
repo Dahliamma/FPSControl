@@ -32,11 +32,11 @@ class FingerPrintScanner():
                 time.sleep(0.1)
                 fps.SetLED(True)
                 time.sleep(0.1)
-            FPS.delay(1)
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         fps.CaptureFinger(True)
         fps.GetImage()
+        fps.SetLED(False)
 
 if __name__ == "__main__":
     test_fps = FingerPrintScanner()
