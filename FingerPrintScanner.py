@@ -17,8 +17,8 @@ class FingerPrintScanner():
     def __init__(self):
         self._status = 0
         print('Starting initialization')
+        self._image = None
         self.initialize()
-        self._image = 0
 
     def initialize(self):
         print('Begin')
