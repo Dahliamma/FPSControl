@@ -45,6 +45,11 @@ class FingerPrintScanner():
 
     def finger_enroll(self):
         self.fps.SetLED(True)
+        while not self.fps.IsPressFinger():
+            print('Place finger on scanner.')
+            FPS.delay(1)
+        print('Thank you for touching me.')
+        print('Beginning enrollment process.')
         self._finger_number = self.fps.GetEnrollCount()
         self.fps.EnrollStart(self._finger_number)
         self.fps.Enroll1()
@@ -54,8 +59,13 @@ class FingerPrintScanner():
 
     def finger_identify(self):
         self.fps.SetLED(True)
+        while not self.fps.IsPressFinger():
+            print('Place finger on scanner.')
+            FPS.delay(1)
+        print('Thank you for touching me.')
+        print('Beginning identification process.')
         self.fps.CaptureFinger(True)
-        for i in range (5):
+        for i in range(5):
             self._finger_scan_number[i] = self.fps.Identify1_N()
         self._collected_scans = Counter(self._finger_scan_number)
         self._true_scan_number = self._collected_scans.most_common(1)
