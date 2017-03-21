@@ -55,6 +55,7 @@ class FingerPrintScanner():
         self.fps.Enroll1()
         self.fps.Enroll2()
         self.fps.Enroll3()
+        self.fps.Close()
         self.fps.SetLED(False)
 
     def finger_identify(self):
