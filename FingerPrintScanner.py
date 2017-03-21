@@ -24,7 +24,7 @@ class FingerPrintScanner():
         self._image = None
         self.finger_test()
         self._finger_number = None
-        self._finger_scan_number = None
+        self._finger_scan_number = [None] * 5
         self._collected_scans = None
         self._true_scan_number = None
 
