@@ -35,7 +35,10 @@ class FingerPrintScanner():
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         fps.CaptureFinger(True)
-        self._image = fps.GetImage()
+        if fps.GetImage():
+            FPS.StartDataDownload
+        for i in range(407):
+            self._image[i] = FPS.GetNextDataPacket
         fps.SetLED(False)
 
 if __name__ == "__main__":
