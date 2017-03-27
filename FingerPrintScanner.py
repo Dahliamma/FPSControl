@@ -1,5 +1,6 @@
 """
 Fingerprint Class
+
 """
 import FPS as FPS
 print('Imported FPS')
