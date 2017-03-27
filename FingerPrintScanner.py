@@ -50,12 +50,12 @@ class FingerPrintScanner():
             FPS.delay(1)
         print('Thank you for touching me.')
         print('Beginning enrollment process.')
+        self.fps.Open()
         self._finger_number = self.fps.GetEnrollCount()
         self.fps.EnrollStart(self._finger_number)
         self.fps.Enroll1()
         self.fps.Enroll2()
         self.fps.Enroll3()
-        self.fps.Close()
         self.fps.SetLED(False)
 
     def finger_identify(self):
