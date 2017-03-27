@@ -67,6 +67,7 @@ class FingerPrintScanner():
             FPS.delay(1)
         print('Thank you for touching me.')
         print('Beginning identification process.')
+        self.fps.Open()
         self.fps.CaptureFinger(True)
         for i in range(5):
             self._finger_scan_number[i] = self.fps.Identify1_N()
