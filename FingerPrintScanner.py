@@ -52,10 +52,12 @@ class FingerPrintScanner():
         print('Beginning enrollment process.')
         self.fps.Open()
         self._finger_number = self.fps.GetEnrollCount()
+        print("BE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.EnrollStart(self._finger_number)
         self.fps.Enroll1()
         self.fps.Enroll2()
         self.fps.Enroll3()
+        print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.SetLED(False)
 
     def finger_identify(self):
