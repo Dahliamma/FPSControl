@@ -59,6 +59,7 @@ class FingerPrintScanner():
         self.fps.Enroll2()
         self.fps.Enroll3()
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
+        self.fps.Open()
         self.fps.SetLED(False)
 
     def finger_identify(self):
@@ -74,6 +75,8 @@ class FingerPrintScanner():
             self._finger_scan_number[i] = self.fps.Identify1_N()
         self._collected_scans = Counter(self._finger_scan_number)
         self._true_scan_number = self._collected_scans.most_common(1)
+        self.fps.Open()
+        self.fps.SetLED(False)
         return self._true_scan_number
 
 if __name__ == "__main__":
