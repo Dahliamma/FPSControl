@@ -100,4 +100,5 @@ class FingerPrintScanner():
         return self._true_scan_number
 
 if __name__ == "__main__":
-    test_fps = FingerPrintScanner()
+    from FingerPrintScanner import FingerPrintScanner
+    test = FingerPrintScanner()
