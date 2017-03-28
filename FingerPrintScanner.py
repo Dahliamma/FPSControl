@@ -5,8 +5,7 @@ Fingerprint Class
 import FPS as FPS
 print('Imported FPS')
 from collections import Counter
-#import time as time
-#print('Imported time')
+print('Imported Counter')
 
 class FingerPrintScanner():
     """
