@@ -77,12 +77,6 @@ class FingerPrintScanner():
         print(str(self._enroll_check))
         self.fps.CaptureFinger(True)
         self._enroll_check = self.fps.Enroll3()
-        while self.fps.IsPressFinger():
-            print('Remove finger momentarily.')
-            FPS.delay(1)
-        while not self.fps.IsPressFinger():
-            print('Retouch the scanner for the second enrollment scan.')
-            FPS.delay(1)
         print(str(self._enroll_check))
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.Open()
