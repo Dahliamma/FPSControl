@@ -78,12 +78,9 @@ class FingerPrintScanner():
         self.fps.CaptureFinger(True)
         self._enroll_check = self.fps.Enroll3()
         print(str(self._enroll_check))
-        print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.Open()
+        print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.SetLED(False)
-
-    def finger_enroll_2(self):
-        LegacyEnroll(self.fps)
 
     def finger_identify(self):
         self.fps.SetLED(True)
