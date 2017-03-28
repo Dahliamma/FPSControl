@@ -6,6 +6,7 @@ import FPS as FPS
 print('Imported FPS')
 from collections import Counter
 print('Imported Counter')
+import LegacyEnroll
 
 class FingerPrintScanner():
     """
@@ -68,6 +69,9 @@ class FingerPrintScanner():
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.Open()
         self.fps.SetLED(False)
+
+    def finger_enroll_2(self):
+        LegacyEnroll(self.fps)
 
     def finger_identify(self):
         self.fps.SetLED(True)
