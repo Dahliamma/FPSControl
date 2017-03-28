@@ -90,8 +90,8 @@ class FingerPrintScanner():
         print('Thank you for touching me.')
         print('Beginning identification process.')
         self.fps.Open()
-        self.fps.CaptureFinger(True)
         for i in range(5):
+            self.fps.CaptureFinger(False)
             self._finger_scan_number[i] = self.fps.Identify1_N()
         self._collected_scans = Counter(self._finger_scan_number)
         self._true_scan_number = self._collected_scans.most_common(1)
