@@ -42,7 +42,7 @@ def LegacyEnroll(fps):
     #search for a free enrollid, you have max 200
     while not okid and enrollid < 200:
         okid = fps.CheckEnrolled(enrollid)
-        if not okid:
+        if okid:
             enrollid+=1
     if enrollid <200:
         #press finger to Enroll enrollid
