@@ -28,6 +28,7 @@ class FingerPrintScanner():
         self._finger_scan_number = [None] * 5
         self._collected_scans = None
         self._true_scan_number = None
+        self._enroll_check = None
 
     def finger_test(self):
         print('Begin')
@@ -56,11 +57,14 @@ class FingerPrintScanner():
         print("BE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.EnrollStart(self._finger_number)
         self.fps.CaptureFinger(True)
-        self.fps.Enroll1()
+        self._enroll_check = self.fps.Enroll1()
+        print(str(self._enroll_check))
         self.fps.CaptureFinger(True)
-        self.fps.Enroll2()
+        self._enroll_check = self.fps.Enroll2()
+        print(str(self._enroll_check))
         self.fps.CaptureFinger(True)
-        self.fps.Enroll3()
+        self._enroll_check = self.fps.Enroll3()
+        print(str(self._enroll_check))
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.Open()
         self.fps.SetLED(False)
