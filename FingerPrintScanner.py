@@ -57,6 +57,7 @@ class FingerPrintScanner():
         self.fps.Open()
         self._finger_number = self.fps.GetEnrollCount()
         print("BE enroll count: " + str(self.fps.GetEnrollCount()))
+        print("Attempting to enroll to ID #: "+str(self._finger_number))
         self.fps.EnrollStart(self._finger_number)
         self.fps.CaptureFinger(True)
         self._enroll_check = self.fps.Enroll1()
