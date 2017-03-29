@@ -650,7 +650,7 @@ class FPS_GT511C3(SerialCommander):
         cp = Command_Packet('Identify1_N',UseSerialDebug=self.UseSerialDebug)
         packetbytes = cp.GetPacketBytes()
         self.SendCommand(packetbytes, 12)
-        self.delay(1)
+        delay(1)
         rp = self.GetResponse()
         retval = rp.IntFromParameter()
         if retval > MAX_FINGER:
