@@ -99,6 +99,7 @@ class FingerPrintScanner():
         self._true_scan_number = self._collected_scans.most_common(1)
         self.fps.Open()
         self.fps.SetLED(False)
+        print('Identified ID:'+str(self._true_scan_number[1]))
         return self._true_scan_number
 
 if __name__ == "__main__":
