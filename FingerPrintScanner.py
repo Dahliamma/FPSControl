@@ -19,7 +19,7 @@ class FingerPrintScanner():
     def __init__(self):
         self._status = 0
         print('Starting initialization')
-        self.fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9600, timeout=2, is_com=False)
+        self.fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=115200, timeout=2, is_com=False)
         self.fps.UseSerialDebug = False
         print('Scanner connected')
         #self.fps.DeleteAll() #Deleting all enrolled fingerprints for debugging reasons
@@ -59,6 +59,7 @@ class FingerPrintScanner():
         print("BE enroll count: " + str(self.fps.GetEnrollCount()))
         print("Attempting to enroll to ID #: "+str(self._finger_number))
         self.fps.EnrollStart(self._finger_number)
+        #Enroll1
         self.fps.CaptureFinger(True)
         self._enroll_check = self.fps.Enroll1()
         print(str(self._enroll_check))
@@ -68,6 +69,7 @@ class FingerPrintScanner():
         while not self.fps.IsPressFinger():
             print('Retouch the scanner for the second enrollment scan.')
             FPS.delay(1)
+        #Enroll2
         self.fps.CaptureFinger(True)
         self._enroll_check = self.fps.Enroll2()
         print(str(self._enroll_check))
@@ -77,6 +79,7 @@ class FingerPrintScanner():
         while not self.fps.IsPressFinger():
             print('Retouch the scanner for the third enrollment scan.')
             FPS.delay(1)
+        #Enroll3
         self.fps.CaptureFinger(True)
         self._enroll_check = self.fps.Enroll3()
         print(str(self._enroll_check))
@@ -98,7 +101,7 @@ class FingerPrintScanner():
             self._finger_scan_number[i] = self.fps.Identify1_N()
         self._collected_scans = Counter(self._finger_scan_number)
         self._true_scan_number = self._collected_scans.most_common(1)
-        self.fps.Open()
+        #self.fps.Open()
         self.fps.SetLED(False)
         print('Identified ID:'+str(self._true_scan_number))
         return self._true_scan_number
