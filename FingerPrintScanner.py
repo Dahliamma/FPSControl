@@ -48,6 +48,7 @@ class FingerPrintScanner():
 
     def finger_enroll(self):
         self.fps.SetLED(True)
+        FPS.delay(1)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             FPS.delay(1)
@@ -84,6 +85,7 @@ class FingerPrintScanner():
 
     def finger_identify(self):
         self.fps.SetLED(True)
+        FPS.delay(1)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             FPS.delay(1)
@@ -102,3 +104,4 @@ class FingerPrintScanner():
 if __name__ == "__main__":
     from FingerPrintScanner import FingerPrintScanner
     test = FingerPrintScanner()
+    test.finger_identify()
