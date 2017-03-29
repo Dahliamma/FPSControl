@@ -19,7 +19,7 @@ class FingerPrintScanner():
     def __init__(self):
         self._status = 0
         print('Starting initialization')
-        self.fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=115200, timeout=2, is_com=False)
+        self.fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9200, timeout=2, is_com=False)
         self.fps.UseSerialDebug = False
         print('Scanner connected')
         #self.fps.DeleteAll() #Deleting all enrolled fingerprints for debugging reasons
