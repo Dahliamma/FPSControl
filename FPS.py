@@ -332,6 +332,7 @@ class FPS_GT511C3(SerialCommander):
     def delay(self, seconds):
         old_serial = 0
         new_serial = 1
+        time.sleep(0.2)
         while not old_serial == new_serial:
             old_serial = new_serial
             new_serial = self._serial.inWaiting()

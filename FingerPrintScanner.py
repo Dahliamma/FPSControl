@@ -83,9 +83,9 @@ class FingerPrintScanner():
         #Enroll3
         self.fps.CaptureFinger(True)
         #pdb.set_trace()
-        print(self.fps._serial.inWaiting())
+        print('Before E3'+self.fps._serial.inWaiting())
         self._enroll_check = self.fps.Enroll3()
-        print(self.fps._serial.inWaiting())
+        print('After E3: '+self.fps._serial.inWaiting())
         print(str(self._enroll_check))
         #self.fps.Open()
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
