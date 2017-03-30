@@ -6,7 +6,7 @@ import FPS as FPS
 print('Imported FPS')
 from collections import Counter
 print('Imported Counter')
-import LegacyEnroll
+import time.sleep as sleep
 import pdb
 
 class FingerPrintScanner():
@@ -35,7 +35,7 @@ class FingerPrintScanner():
     def finger_test(self):
         print('Begin')
         print(self.fps.IsPressFinger())
-        self.fps.delay(1)
+        sleep(1)
         self.fps.SetLED(True)
         print('Place finger on scanner.')
         while not self.fps.IsPressFinger():
@@ -49,7 +49,7 @@ class FingerPrintScanner():
 
     def finger_enroll(self):
         self.fps.SetLED(True)
-        self.fps.delay(1)
+        sleep(1)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             self.fps.delay(1)
@@ -91,7 +91,7 @@ class FingerPrintScanner():
 
     def finger_identify(self):
         self.fps.SetLED(True)
-        self.fps.delay(1)
+        sleep(1)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             self.fps.delay(1)
