@@ -335,6 +335,7 @@ class FPS_GT511C3(SerialCommander):
         while not old_serial == new_serial:
             old_serial = new_serial
             new_serial = self._serial.inWaiting()
+            time.sleep(0.1)
 
     def Open(self):
         '''
