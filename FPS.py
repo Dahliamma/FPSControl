@@ -329,7 +329,7 @@ class FPS_GT511C3(SerialCommander):
         elif self.UseSerialDebug:
             print '[FPS_GT511C3] No es posible conectar con el dispositivo %s' % self._device_name
 
-    def fps_delay(self, seconds):
+    def delay(self, seconds):
         old_serial = 0
         new_serial = 1
         while not old_serial == new_serial:
