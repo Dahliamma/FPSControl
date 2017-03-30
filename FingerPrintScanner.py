@@ -35,12 +35,12 @@ class FingerPrintScanner():
     def finger_test(self):
         print('Begin')
         print(self.fps.IsPressFinger())
-        FPS.delay(1)
+        self.fps.delay(1)
         self.fps.SetLED(True)
         print('Place finger on scanner.')
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
-            FPS.delay(1)
+            self.fps.delay(1)
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         self.fps.CaptureFinger(True)
@@ -49,10 +49,10 @@ class FingerPrintScanner():
 
     def finger_enroll(self):
         self.fps.SetLED(True)
-        FPS.delay(1)
+        self.fps.delay(1)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
-            FPS.delay(1)
+            self.fps.delay(1)
         print('Thank you for touching me.')
         print('Beginning enrollment process.')
         self.fps.Open()
@@ -66,20 +66,20 @@ class FingerPrintScanner():
         print(str(self._enroll_check))
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
-            FPS.delay(1)
+            self.fps.delay(1)
         while not self.fps.IsPressFinger():
             print('Retouch the scanner for the second enrollment scan.')
-            FPS.delay(1)
+            self.fps.delay(1)
         #Enroll2
         self.fps.CaptureFinger(True)
         self._enroll_check = self.fps.Enroll2()
         print(str(self._enroll_check))
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
-            FPS.delay(1)
+            self.fps.delay(1)
         while not self.fps.IsPressFinger():
             print('Retouch the scanner for the third enrollment scan.')
-            FPS.delay(1)
+            self.fps.delay(1)
         #Enroll3
         self.fps.CaptureFinger(True)
         pdb.set_trace()
@@ -91,10 +91,10 @@ class FingerPrintScanner():
 
     def finger_identify(self):
         self.fps.SetLED(True)
-        FPS.delay(1)
+        self.fps.delay(1)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
-            FPS.delay(1)
+            self.fps.delay(1)
         print('Thank you for touching me.')
         print('Beginning identification process.')
         self.fps.Open()

@@ -12,11 +12,13 @@ import binascii
 import pdb
 
 MAX_FINGER=200
+
 def delay(seconds):
     '''
     wait a number of secons 
     '''
     time.sleep(seconds)
+
 
 def serial_ports():
     '''
@@ -326,8 +328,14 @@ class FPS_GT511C3(SerialCommander):
             self.Open()
         elif self.UseSerialDebug:
             print '[FPS_GT511C3] No es posible conectar con el dispositivo %s' % self._device_name
-            
-     
+
+    def fps_delay(self, seconds):
+        old_serial = 0
+        new_serial = 1
+        while not old_serial == new_serial:
+            old_serial = new_serial
+            new_serial = self._serial.in_waiting()
+
     def Open(self):
         '''
             Initialises the device and gets ready for commands
