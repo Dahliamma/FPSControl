@@ -816,17 +816,17 @@ class FPS_GT511C3(SerialCommander):
             #print 'Packet size: %i'% len(r)
             rp = Response_Packet(r,self.UseSerialDebug)
 
-# SL - unknown the purpose of this code for obtaining an additional response packet 
+# SL - unknown the purpose of this code for obtaining an additional response packet
 #   after the initial response packet has already been fetched
-#        if rp.ACK:
-#            delay(interval)
-#            r2 = bytearray(self._serial.read(self._serial.inWaiting()))
-#            rp2 = Response_Packet(r2,self.UseSerialDebug)
-#            while str(rp2._lastBuffer).__len__()>0:
-#                rp.RawBytes.extend(rp2.RawBytes)
-#                rp._lastBuffer += rp2._lastBuffer
-#                delay(interval)
-#                r2 = bytearray(self._serial.read(self._serial.inWaiting()))
-#                rp2 = Response_Packet(r2,self.UseSerialDebug)
-#        self._lastResponse = rp
+        if rp.ACK:
+            delay(interval)
+            r2 = bytearray(self._serial.read(self._serial.inWaiting()))
+            rp2 = Response_Packet(r2,self.UseSerialDebug)
+            while str(rp2._lastBuffer).__len__()>0:
+                rp.RawBytes.extend(rp2.RawBytes)
+                rp._lastBuffer += rp2._lastBuffer
+                delay(interval)
+                r2 = bytearray(self._serial.read(self._serial.inWaiting()))
+                rp2 = Response_Packet(r2,self.UseSerialDebug)
+        self._lastResponse = rp
         return rp
