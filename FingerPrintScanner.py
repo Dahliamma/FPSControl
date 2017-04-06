@@ -152,14 +152,15 @@ class FingerPrintScanner():
                 else:
                     print('Enrollment Failed')
                     self.fps.SetLED(False)
+                    test._retry_count = 10
             else:
                 print('Enrollment Failed')
                 self.fps.SetLED(False)
+                test._retry_count = 10
         else:
             print('Enrollment Failed')
             self.fps.SetLED(False)
-
-
+            test._retry_count = 10
 
     def finger_identify(self):
         self.fps.SetLED(True)
