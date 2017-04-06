@@ -62,6 +62,7 @@ class FingerPrintScanner():
         self.fps.EnrollStart(-1)
         #Enroll1
         self.fps.CaptureFinger(True)
+        sleep(2)
         self._enroll_check = self.fps.Enroll1()
         print(str(self._enroll_check))
         while self.fps.IsPressFinger():
@@ -72,6 +73,7 @@ class FingerPrintScanner():
             self.fps.delay(1)
         #Enroll2
         self.fps.CaptureFinger(True)
+        sleep(2)
         self._enroll_check = self.fps.Enroll2()
         print(str(self._enroll_check))
         while self.fps.IsPressFinger():
@@ -82,7 +84,8 @@ class FingerPrintScanner():
             self.fps.delay(1)
         #Enroll3
         self.fps.CaptureFinger(True)
-        pdb.set_trace()
+        sleep(2)
+        #pdb.set_trace()
         #print('Before E3'+str(self.fps._serial.inWaiting()))
         self._enroll_check = self.fps.Enroll3()
         #print('After E3: '+str(self.fps._serial.inWaiting()))
