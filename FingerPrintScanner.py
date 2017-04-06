@@ -65,7 +65,8 @@ class FingerPrintScanner():
         self._finger_number = self.fps.GetEnrollCount()
         print("BE enroll count: " + str(self.fps.GetEnrollCount()))
         print("Attempting to enroll to ID #: " + str(self._finger_number))
-        self.fps.EnrollStart(self._finger_number)
+        already_used_check = self.fps.EnrollStart(self._finger_number)
+        print('Already used check: '+str(already_used_check))
 
     def EStep1(self):
         while self.fps.IsPressFinger():
