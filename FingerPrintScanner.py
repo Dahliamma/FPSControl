@@ -151,4 +151,5 @@ class FingerPrintScanner():
 if __name__ == "__main__":
     from FingerPrintScanner import FingerPrintScanner
     test = FingerPrintScanner()
-    test.finger_identify()
+    sleep(2)
+    test.finger_enroll()
