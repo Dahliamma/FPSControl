@@ -77,7 +77,7 @@ class FingerPrintScanner():
             print('Touch the scanner for the first enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        self._ES1 = self.fps.CaptureFinger(True)
+        self._ES1 = self.fps.CaptureFinger(False)
         sleep(0.5)
         if self._ES1 == True:
             self._enroll_check = self.fps.Enroll1()
@@ -93,7 +93,7 @@ class FingerPrintScanner():
             print('Touch the scanner for the second enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        self._ES2 = self.fps.CaptureFinger(True)
+        self._ES2 = self.fps.CaptureFinger(False)
         sleep(0.5)
         if self._ES2 == True:
             self._enroll_check = self.fps.Enroll2()
@@ -109,7 +109,7 @@ class FingerPrintScanner():
             print('Touch the scanner for the third enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        self._ES3 = self.fps.CaptureFinger(True)
+        self._ES3 = self.fps.CaptureFinger(False)
         sleep(0.5)
         if self._ES3 == True:
             # pdb.set_trace()
