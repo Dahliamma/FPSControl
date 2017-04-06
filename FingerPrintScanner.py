@@ -21,7 +21,7 @@ class FingerPrintScanner():
         self._status = 0
         print('Starting initialization')
         self.fps = FPS.FPS_GT511C3(device_name='/dev/ttyUSB0', baud=9600, timeout=2, is_com=False)
-        self.fps.UseSerialDebug = True
+        self.fps.UseSerialDebug = False
         print('Scanner connected')
         #self.fps.DeleteAll() #Deleting all enrolled fingerprints for debugging reasons
         self._image = None
@@ -32,9 +32,9 @@ class FingerPrintScanner():
         self._true_scan_number = None
         self._enroll_check = None
         self._retry_count = 10
-        self.ES1 = False
-        self.ES2 = False
-        self.ES3 = False
+        self._ES1 = False
+        self._ES2 = False
+        self._ES3 = False
 
     def finger_test(self):
         print('Begin')
@@ -68,7 +68,7 @@ class FingerPrintScanner():
         self.fps.EnrollStart(self._finger_number)
 
     def EStep1(self):
-        self.ES1 = self.fps.CaptureFinger(True)
+        self._ES1 = self.fps.CaptureFinger(True)
         sleep(0.5)
         self._enroll_check = self.fps.Enroll1()
         print(str(self._enroll_check))
@@ -80,10 +80,10 @@ class FingerPrintScanner():
             print('Retouch the scanner for the second enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        return self.ES1
+        return self._ES1
 
     def EStep2(self):
-        self.ES2 = self.fps.CaptureFinger(True)
+        self._ES2 = self.fps.CaptureFinger(True)
         sleep(0.5)
         self._enroll_check = self.fps.Enroll2()
         print(str(self._enroll_check))
@@ -95,10 +95,10 @@ class FingerPrintScanner():
             print('Retouch the scanner for the third enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        return self.ES2
+        return self._ES2
 
     def EStep3(self):
-        self.ES3 = self.fps.CaptureFinger(True)
+        self._ES3 = self.fps.CaptureFinger(True)
         sleep(0.5)
         # pdb.set_trace()
         # print('Before E3'+str(self.fps._serial.inWaiting()))
@@ -108,7 +108,7 @@ class FingerPrintScanner():
         # self.fps.Open()
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.SetLED(False)
-        return self.ES3
+        return self._ES3
 
     def finger_enroll(self):
         self.EStep0()
