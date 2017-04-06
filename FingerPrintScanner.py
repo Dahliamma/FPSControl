@@ -78,8 +78,9 @@ class FingerPrintScanner():
             sleep(0.5)
         self._ES1 = self.fps.CaptureFinger(True)
         sleep(0.5)
-        self._enroll_check = self.fps.Enroll1()
-        print(str(self._enroll_check))
+        if self._ES1 == True:
+            self._enroll_check = self.fps.Enroll1()
+            print(str(self._enroll_check))
         #return self._ES1
 
     def EStep2(self):
@@ -93,8 +94,9 @@ class FingerPrintScanner():
             sleep(0.5)
         self._ES2 = self.fps.CaptureFinger(True)
         sleep(0.5)
-        self._enroll_check = self.fps.Enroll2()
-        print(str(self._enroll_check))
+        if self._ES2 == True:
+            self._enroll_check = self.fps.Enroll2()
+            print(str(self._enroll_check))
         #return self._ES2
 
     def EStep3(self):
@@ -108,11 +110,12 @@ class FingerPrintScanner():
             sleep(0.5)
         self._ES3 = self.fps.CaptureFinger(True)
         sleep(0.5)
-        # pdb.set_trace()
-        # print('Before E3'+str(self.fps._serial.inWaiting()))
-        self._enroll_check = self.fps.Enroll3()
-        # print('After E3: '+str(self.fps._serial.inWaiting()))
-        print(str(self._enroll_check))
+        if self._ES3 == True:
+            # pdb.set_trace()
+            # print('Before E3'+str(self.fps._serial.inWaiting()))
+            self._enroll_check = self.fps.Enroll3()
+            # print('After E3: '+str(self.fps._serial.inWaiting()))
+            print(str(self._enroll_check))
         #return self._ES3
 
     def EStep4(self):
