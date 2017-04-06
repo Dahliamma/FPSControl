@@ -80,7 +80,7 @@ class FingerPrintScanner():
             print('Retouch the scanner for the second enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        return self._ES1
+        #return self._ES1
 
     def EStep2(self):
         self._ES2 = self.fps.CaptureFinger(True)
@@ -95,7 +95,7 @@ class FingerPrintScanner():
             print('Retouch the scanner for the third enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        return self._ES2
+        #return self._ES2
 
     def EStep3(self):
         self._ES3 = self.fps.CaptureFinger(True)
@@ -108,25 +108,37 @@ class FingerPrintScanner():
         # self.fps.Open()
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.SetLED(False)
-        return self._ES3
+        #return self._ES3
 
     def finger_enroll(self):
         self.EStep0()
-        while not self.EStep1() and self._retry_count > 0:
+        self.EStep1()
+        while not self._ES1() and self._retry_count > 0:
+            self.EStep1()
             print('Retrying ES1')
             self._retry_count = self._retry_count - 1
         if self._ES1 == True:
             self._retry_count = 10
-        while not self.EStep2() and self._retry_count > 0:
+        else:
+            print('Enrollment Failed')
+        self.EStep2()
+        while not self._ES2() and self._retry_count > 0:
+            self.EStep2()
             print('Retrying ES2')
             self._retry_count = self._retry_count - 1
         if self._ES2 == True:
             self._retry_count = 10
-        while not self.EStep3() and self._retry_count > 0:
+        else:
+            print('Enrollment Failed')
+        self.EStep3()
+        while not self._ES3() and self._retry_count > 0:
+            self.EStep3()
             print('Retrying ES3')
             self._retry_count = self._retry_count - 1
         if self._ES3 == True:
             self._retry_count = 10
+        else:
+            print('Enrollment Failed')
 
     def finger_identify(self):
         self.fps.SetLED(True)
