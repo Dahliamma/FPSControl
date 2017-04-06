@@ -31,6 +31,7 @@ class FingerPrintScanner():
         self._collected_scans = None
         self._true_scan_number = None
         self._enroll_check = None
+        self._retry_count = 10
 
     def finger_test(self):
         print('Begin')
@@ -41,58 +42,71 @@ class FingerPrintScanner():
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             self.fps.delay(1)
+            sleep(0.5)
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         self.fps.CaptureFinger(True)
         self._image = self.fps.GetImage()
         self.fps.SetLED(False)
 
-    def finger_enroll(self):
+    def EStep0(self):
         self.fps.SetLED(True)
         sleep(1)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             self.fps.delay(1)
+            sleep(0.5)
         print('Thank you for touching me.')
         print('Beginning enrollment process.')
         self.fps.Open()
         self._finger_number = self.fps.GetEnrollCount()
         print("BE enroll count: " + str(self.fps.GetEnrollCount()))
-        print("Attempting to enroll to ID #: "+str(self._finger_number))
-        self.fps.EnrollStart(-1)
-        #Enroll1
+        print("Attempting to enroll to ID #: " + str(self._finger_number))
+        self.fps.EnrollStart(self._finger_number
+
+    def EStep1(self):
         self.fps.CaptureFinger(True)
-        sleep(2)
+        sleep(0.5)
         self._enroll_check = self.fps.Enroll1()
         print(str(self._enroll_check))
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
             self.fps.delay(1)
+            sleep(0.5)
         while not self.fps.IsPressFinger():
             print('Retouch the scanner for the second enrollment scan.')
             self.fps.delay(1)
-        #Enroll2
+            sleep(0.5)
+
+    def EStep2(self):
         self.fps.CaptureFinger(True)
-        sleep(2)
+        sleep(0.5)
         self._enroll_check = self.fps.Enroll2()
         print(str(self._enroll_check))
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
             self.fps.delay(1)
+            sleep(0.5)
         while not self.fps.IsPressFinger():
             print('Retouch the scanner for the third enrollment scan.')
             self.fps.delay(1)
-        #Enroll3
+            sleep(0.5)
+
+    def EStep3(self):
         self.fps.CaptureFinger(True)
-        sleep(2)
-        #pdb.set_trace()
-        #print('Before E3'+str(self.fps._serial.inWaiting()))
+        sleep(0.5)
+        # pdb.set_trace()
+        # print('Before E3'+str(self.fps._serial.inWaiting()))
         self._enroll_check = self.fps.Enroll3()
-        #print('After E3: '+str(self.fps._serial.inWaiting()))
+        # print('After E3: '+str(self.fps._serial.inWaiting()))
         print(str(self._enroll_check))
-        #self.fps.Open()
+        # self.fps.Open()
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.SetLED(False)
+
+    def finger_enroll(self):
+        if
+
 
     def finger_identify(self):
         self.fps.SetLED(True)
@@ -100,6 +114,7 @@ class FingerPrintScanner():
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             self.fps.delay(1)
+            sleep(0.5)
         print('Thank you for touching me.')
         print('Beginning identification process.')
         self.fps.Open()
