@@ -55,11 +55,11 @@ class FingerPrintScanner():
     def EStep0(self):
         self.fps.SetLED(True)
         sleep(1)
-        while not self.fps.IsPressFinger():
+        """while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
             self.fps.delay(1)
             sleep(0.5)
-        print('Thank you for touching me.')
+        print('Thank you for touching me.')"""
         print('Beginning enrollment process.')
         self.fps.Open()
         self._finger_number = self.fps.GetEnrollCount()
@@ -68,36 +68,44 @@ class FingerPrintScanner():
         self.fps.EnrollStart(self._finger_number)
 
     def EStep1(self):
+        while self.fps.IsPressFinger():
+            print('Remove finger momentarily.')
+            self.fps.delay(1)
+            sleep(0.5)
+        while not self.fps.IsPressFinger():
+            print('Touch the scanner for the first enrollment scan.')
+            self.fps.delay(1)
+            sleep(0.5)
         self._ES1 = self.fps.CaptureFinger(True)
         sleep(0.5)
         self._enroll_check = self.fps.Enroll1()
         print(str(self._enroll_check))
+        #return self._ES1
+
+    def EStep2(self):
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
             self.fps.delay(1)
             sleep(0.5)
         while not self.fps.IsPressFinger():
-            print('Retouch the scanner for the second enrollment scan.')
+            print('Touch the scanner for the second enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        #return self._ES1
-
-    def EStep2(self):
         self._ES2 = self.fps.CaptureFinger(True)
         sleep(0.5)
         self._enroll_check = self.fps.Enroll2()
         print(str(self._enroll_check))
+        #return self._ES2
+
+    def EStep3(self):
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
             self.fps.delay(1)
             sleep(0.5)
         while not self.fps.IsPressFinger():
-            print('Retouch the scanner for the third enrollment scan.')
+            print('Touch the scanner for the third enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
-        #return self._ES2
-
-    def EStep3(self):
         self._ES3 = self.fps.CaptureFinger(True)
         sleep(0.5)
         # pdb.set_trace()
