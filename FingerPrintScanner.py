@@ -148,10 +148,13 @@ class FingerPrintScanner():
                     self.EStep4()
                 else:
                     print('Enrollment Failed')
+                    self.fps.SetLED(False)
             else:
                 print('Enrollment Failed')
+                self.fps.SetLED(False)
         else:
             print('Enrollment Failed')
+            self.fps.SetLED(False)
 
 
 
