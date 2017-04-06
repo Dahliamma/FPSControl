@@ -113,10 +113,11 @@ class FingerPrintScanner():
         self._enroll_check = self.fps.Enroll3()
         # print('After E3: '+str(self.fps._serial.inWaiting()))
         print(str(self._enroll_check))
-        # self.fps.Open()
+        #return self._ES3
+
+    def EStep4(self):
         print("AE enroll count: " + str(self.fps.GetEnrollCount()))
         self.fps.SetLED(False)
-        #return self._ES3
 
     def finger_enroll(self):
         self.EStep0()
@@ -127,26 +128,29 @@ class FingerPrintScanner():
             self._retry_count = self._retry_count - 1
         if self._ES1 == True:
             self._retry_count = 10
-        else:
-            print('Enrollment Failed')
-        self.EStep2()
-        while not self._ES2 and self._retry_count > 0:
-            print('Retrying ES2')
             self.EStep2()
-            self._retry_count = self._retry_count - 1
-        if self._ES2 == True:
-            self._retry_count = 10
+            while not self._ES2 and self._retry_count > 0:
+                print('Retrying ES2')
+                self.EStep2()
+                self._retry_count = self._retry_count - 1
+            if self._ES2 == True:
+                self._retry_count = 10
+                self.EStep3()
+                while not self._ES3 and self._retry_count > 0:
+                    print('Retrying ES3')
+                    self.EStep3()
+                    self._retry_count = self._retry_count - 1
+                if self._ES3 == True:
+                    self._retry_count = 10
+                    self.EStep4()
+                else:
+                    print('Enrollment Failed')
+            else:
+                print('Enrollment Failed')
         else:
             print('Enrollment Failed')
-        self.EStep3()
-        while not self._ES3 and self._retry_count > 0:
-            print('Retrying ES3')
-            self.EStep3()
-            self._retry_count = self._retry_count - 1
-        if self._ES3 == True:
-            self._retry_count = 10
-        else:
-            print('Enrollment Failed')
+
+
 
     def finger_identify(self):
         self.fps.SetLED(True)
