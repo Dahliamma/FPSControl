@@ -63,9 +63,9 @@ class FingerPrintScanner():
         print('Beginning enrollment process.')
         self.fps.Open()
         self._finger_number = self.fps.GetEnrollCount()
-        print("BE enroll count: " + str(self.fps.GetEnrollCount()))
+        print("BE enroll count: " + str(self._finger_number))
         print("Attempting to enroll to ID #: " + str(self._finger_number))
-        already_used_check = self.fps.EnrollStart(5)
+        already_used_check = self.fps.EnrollStart(self._finger_number)
         print('Already used check: '+str(already_used_check))
 
     def EStep1(self):
@@ -98,6 +98,7 @@ class FingerPrintScanner():
             print('Touch the scanner for the second enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
+        print('Keep finger on scanner.')
         counter = 0
         while counter <= 50 and not self._ES2:
             self._ES2 = self.fps.CaptureFinger(True)
@@ -118,6 +119,7 @@ class FingerPrintScanner():
             print('Touch the scanner for the third enrollment scan.')
             self.fps.delay(1)
             sleep(0.5)
+        print('Keep finger on scanner.')
         counter = 0
         while counter <= 0 and not self._ES3:
             self._ES3 = self.fps.CaptureFinger(True)
