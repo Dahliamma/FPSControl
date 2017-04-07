@@ -136,7 +136,8 @@ class FingerPrintScanner():
 
     def EStep4(self):
         sleep(0.5)
-        print("AE enroll count: " + str(self.fps.GetEnrollCount()))
+        AE_enroll_count = self.fps.GetEnrollCount()
+        print("AE enroll count: " + str(AE_enroll_count))
         self.fps.SetLED(False)
         sleep(0.5)
 
