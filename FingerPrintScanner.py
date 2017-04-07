@@ -121,7 +121,7 @@ class FingerPrintScanner():
             sleep(0.5)
         print('Keep finger on scanner.')
         counter = 0
-        while counter <= 0 and not self._ES3:
+        while counter <= 50 and not self._ES3:
             self._ES3 = self.fps.CaptureFinger(True)
             sleep(0.1)
             counter = counter + 1
