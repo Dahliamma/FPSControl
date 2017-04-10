@@ -30,7 +30,7 @@ class FingerPrintScanner():
         self._finger_scan_number = [None] * 5
         self._collected_scans = None
         self._true_scan_number = None
-        self._enroll_check = None
+        self._enroll_check = True
         self._retry_count = 10
         self._ES1 = False
         self._ES1_2 = None
@@ -59,11 +59,6 @@ class FingerPrintScanner():
     def EStep0(self):
         self.fps.SetLED(True)
         sleep(1)
-        """while not self.fps.IsPressFinger():
-            print('Place finger on scanner.')
-            self.fps.delay(1)
-            sleep(0.5)
-        print('Thank you for touching me.')"""
         print('Beginning enrollment process.')
         self.fps.Open()
         self._finger_number = self.fps.GetEnrollCount()
@@ -71,6 +66,10 @@ class FingerPrintScanner():
         print("Attempting to enroll to ID #: " + str(self._finger_number))
         already_used_check = self.fps.EnrollStart(self._finger_number)
         print('Already used check: '+str(already_used_check))
+        if already_used_check == 0:
+            return True
+        else:
+            return False
 
     def EStep1(self):
         while self.fps.IsPressFinger():
@@ -91,7 +90,12 @@ class FingerPrintScanner():
         if self._ES1 == True:
             self._ES1_2 = self.fps.Enroll1()
             print(str(self._ES1_2))
-        #return self._ES1
+        if (not self._ES1 or not self._ES1_2 == 0):
+            print('ES1 failed. Restarting enrollment.')
+            return False
+        else:
+            print('ES1 Succeeded')
+            return True
 
     def EStep2(self):
         while self.fps.IsPressFinger():
@@ -112,7 +116,12 @@ class FingerPrintScanner():
         if self._ES2 == True:
             self._ES2_2 = self.fps.Enroll2()
             print(str(self._ES2_2))
-        #return self._ES2
+        if (not self._ES2 or not self._ES2_2 == 0) and self._retry_count > 0:
+            print('ES2 failed. Restarting enrollment.')
+            return False
+        else:
+            print('ES2 Succeeded')
+            return True
 
     def EStep3(self):
         while self.fps.IsPressFinger():
@@ -136,7 +145,12 @@ class FingerPrintScanner():
             self._ES3_2 = self.fps.Enroll3()
             # print('After E3: '+str(self.fps._serial.inWaiting()))
             print(str(self._ES3_2))
-        #return self._ES3
+        if (not self._ES3 or not self._ES3_2 == 0) and self._retry_count > 0:
+            print('ES3 failed. Restarting enrollment.')
+            return False
+        else:
+            print('ES3 Succeeded')
+            return True
 
     def EStep4(self):
         sleep(0.5)
@@ -147,47 +161,28 @@ class FingerPrintScanner():
         sleep(0.5)
 
     def finger_enroll(self):
-        self.EStep0()
-        self.EStep1()
-        while (not self._ES1 or not self._ES1_2 == 0) and self._retry_count > 0:
-            print('ES1 failed. Restarting enrollment.')
-            self.finger_enroll()
-            self._retry_count = self._retry_count - 1
-        if self._ES1 == True and self._ES1_2 == 0:
-            print('ES1 Succeeded')
-            self._retry_count = 10
-            self.EStep2()
-            self._ES1 = False
-            while (not self._ES2 or not self._ES2_2 == 0) and self._retry_count > 0:
-                print('ES2 failed. Restarting enrollment.')
-                self.finger_enroll()
-                self._retry_count = self._retry_count - 1
-            if self._ES2 == True and self._ES2_2 == 0:
-                print('ES2 Succeeded')
-                self._retry_count = 10
-                self.EStep3()
-                self._ES2 = False
-                while (not self._ES3 or not self._ES3_2 == 0) and self._retry_count > 0:
-                    print('ES3 failed. Restarting enrollment.')
-                    self.finger_enroll()
-                    self._retry_count = self._retry_count - 1
-                if self._ES3 == True and self._ES3_2 == 0:
-                    print('ES3 Succeeded')
-                    self._retry_count = 10
-                    self.EStep4()
-                    self._ES3 = False
+        fail_check = False
+        if self.EStep0():
+            if self.EStep1():
+                if self.EStep2():
+                    if self.EStep3():
+                        self.EStep4()
+                    else:
+                        self._enroll_check = False
+                        break
                 else:
-                    print('Enrollment Failed')
-                    self.fps.SetLED(False)
-                    self._retry_count = 10
+                    self._enroll_check = False
+                    break
             else:
-                print('Enrollment Failed')
-                self.fps.SetLED(False)
-                self._retry_count = 10
+                self._enroll_check = False
+                break
         else:
-            print('Enrollment Failed')
-            self.fps.SetLED(False)
-            self._retry_count = 10
+            self._enroll_check = False
+            break
+
+        if not self._enroll_check and self._retry_count > 0:
+            self._retry_count = self._retry_count - 1
+            self.finger_enroll()
 
     def finger_identify(self):
         self.fps.SetLED(True)
