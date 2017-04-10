@@ -231,4 +231,6 @@ if __name__ == "__main__":
         print('Are you sure? (Y/N)')
         del_check = raw_input()
         if del_check.lower is 'y':
-            test.fps.DeleteAll()
+            del_check_check = False
+            while not del_check_check:
+                del_check_check = test.fps.DeleteAll()
