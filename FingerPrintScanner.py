@@ -230,5 +230,5 @@ if __name__ == "__main__":
     if testloop == 4:
         print('Are you sure? (Y/N)')
         del_check = input()
-        if del_check.lower == 'y':
+        if del_check.lower is 'y':
             self.fps.DeleteAll()
