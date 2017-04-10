@@ -154,6 +154,7 @@ class FingerPrintScanner():
             print('ES1 Succeeded')
             self._retry_count = 10
             self.EStep2()
+            self._ES1 = False
             while not self._ES2 and self._retry_count > 0:
                 print('Retrying ES2')
                 self.EStep2()
@@ -162,6 +163,7 @@ class FingerPrintScanner():
                 print('ES2 Succeeded')
                 self._retry_count = 10
                 self.EStep3()
+                self._ES2 = False
                 while not self._ES3 and self._retry_count > 0:
                     print('Retrying ES3')
                     self.EStep3()
@@ -170,6 +172,7 @@ class FingerPrintScanner():
                     print('ES3 Succeeded')
                     self._retry_count = 10
                     self.EStep4()
+                    self._ES3 = False
                 else:
                     print('Enrollment Failed')
                     self.fps.SetLED(False)
@@ -194,7 +197,7 @@ class FingerPrintScanner():
             print('Place finger on scanner for identification.')
             self.fps.delay(1)
             sleep(0.5)
-        print('Thank you for touching me.')
+        print('Thank you for touching me. Keep it up.')
         print('Beginning identification process.')
         self.fps.Open()
         for i in range(5):
@@ -204,6 +207,7 @@ class FingerPrintScanner():
                 sleep(0.1)
                 counter = counter + 1
             self._finger_scan_number[i] = self.fps.Identify1_N()
+            self._idchk = False
         self._collected_scans = Counter(self._finger_scan_number)
         self._true_scan_number = self._collected_scans.most_common(1)
         #self.fps.Open()
