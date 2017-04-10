@@ -221,5 +221,9 @@ class FingerPrintScanner():
 if __name__ == "__main__":
     from FingerPrintScanner import FingerPrintScanner
     test = FingerPrintScanner()
+    testloop = input('1. Enroll. | 2. Identify. | 3. Enroll and Identify.')
     sleep(2)
-    test.finger_enroll()
+    if testloop == 1 or testloop == 3:
+        test.finger_enroll()
+    if testloop == 2 or testloop == 3:
+        test.finger_identify()
