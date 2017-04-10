@@ -156,6 +156,7 @@ class FingerPrintScanner():
         sleep(0.5)
         self.fps.Open()
         AE_enroll_count = self.fps.GetEnrollCount()
+        print('Enrollment Succeeded')
         print("AE enroll count: " + str(AE_enroll_count))
         self.fps.SetLED(False)
         sleep(0.5)
@@ -219,9 +220,15 @@ class FingerPrintScanner():
 if __name__ == "__main__":
     from FingerPrintScanner import FingerPrintScanner
     test = FingerPrintScanner()
-    testloop = input('1. Enroll. | 2. Identify. | 3. Enroll and Identify.')
+    print('1. Enroll. | 2. Identify. | 3. Enroll and Identify. | 4. DeleteAll.')
+    testloop = input('Choice: ')
     sleep(2)
     if testloop == 1 or testloop == 3:
         test.finger_enroll()
     if testloop == 2 or testloop == 3:
         test.finger_identify()
+    if testloop = 4:
+        print('Are you sure? (Y/N)')
+        del_check = input()
+        if del_check.lower == 'y':
+            self.fps.DeleteAll()
