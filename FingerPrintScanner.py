@@ -133,9 +133,9 @@ class FingerPrintScanner():
         if self._ES3 == True:
             # pdb.set_trace()
             # print('Before E3'+str(self.fps._serial.inWaiting()))
-            self._ES3_3 = self.fps.Enroll3()
+            self._ES3_2 = self.fps.Enroll3()
             # print('After E3: '+str(self.fps._serial.inWaiting()))
-            print(str(self._ES3_3))
+            print(str(self._ES3_2))
         #return self._ES3
 
     def EStep4(self):
