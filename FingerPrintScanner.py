@@ -35,6 +35,7 @@ class FingerPrintScanner():
         self._ES1 = False
         self._ES2 = False
         self._ES3 = False
+        self._idchk = False
 
     def finger_test(self):
         print('Begin')
@@ -136,6 +137,7 @@ class FingerPrintScanner():
 
     def EStep4(self):
         sleep(0.5)
+        self.fps.Open()
         AE_enroll_count = self.fps.GetEnrollCount()
         print("AE enroll count: " + str(AE_enroll_count))
         self.fps.SetLED(False)
@@ -184,15 +186,23 @@ class FingerPrintScanner():
     def finger_identify(self):
         self.fps.SetLED(True)
         sleep(1)
+        while self.fps.IsPressFinger():
+            print('Remove finger momentarily.')
+            self.fps.delay(1)
+            sleep(0.5)
         while not self.fps.IsPressFinger():
-            print('Place finger on scanner.')
+            print('Place finger on scanner for identification.')
             self.fps.delay(1)
             sleep(0.5)
         print('Thank you for touching me.')
         print('Beginning identification process.')
         self.fps.Open()
         for i in range(5):
-            self.fps.CaptureFinger(False)
+            counter = 0
+            while counter <= 50 and not self._idchk:
+                self._idchk = self.fps.CaptureFinger(False)
+                sleep(0.1)
+                counter = counter + 1
             self._finger_scan_number[i] = self.fps.Identify1_N()
         self._collected_scans = Counter(self._finger_scan_number)
         self._true_scan_number = self._collected_scans.most_common(1)
