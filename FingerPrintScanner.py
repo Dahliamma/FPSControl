@@ -160,29 +160,29 @@ class FingerPrintScanner():
         self.fps.SetLED(False)
         sleep(0.5)
 
-    def finger_enroll(self):
-        fail_check = False
+    def enroll_process(self):
         if self.EStep0():
             if self.EStep1():
                 if self.EStep2():
                     if self.EStep3():
                         self.EStep4()
+                        return True
                     else:
-                        self._enroll_check = False
-                        break
+                        return False
                 else:
-                    self._enroll_check = False
-                    break
+                    return False
             else:
-                self._enroll_check = False
-                break
+                return False
         else:
-            self._enroll_check = False
-            break
+            return False
 
-        if not self._enroll_check and self._retry_count > 0:
+    def finger_enroll(self):
+        self._enroll_check = self.enroll_process()
+        while not self._enroll_check and self._retry_count > 0:
             self._retry_count = self._retry_count - 1
-            self.finger_enroll()
+            self._enroll_check = self.enroll_process()
+        if not self._enroll_check:
+            print('Enrollmet Failed.')
 
     def finger_identify(self):
         self.fps.SetLED(True)
