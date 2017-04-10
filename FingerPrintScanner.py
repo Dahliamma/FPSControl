@@ -227,7 +227,7 @@ if __name__ == "__main__":
         test.finger_enroll()
     if testloop == 2 or testloop == 3:
         test.finger_identify()
-    if testloop = 4:
+    if testloop == 4:
         print('Are you sure? (Y/N)')
         del_check = input()
         if del_check.lower == 'y':
