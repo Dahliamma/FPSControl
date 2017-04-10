@@ -149,7 +149,7 @@ class FingerPrintScanner():
     def finger_enroll(self):
         self.EStep0()
         self.EStep1()
-        while not self._ES1 and self._retry_count > 0 and not self._ES1_2 == 0:
+        while (not self._ES1 or not self._ES1_2 == 0) and self._retry_count > 0:
             print('Retrying ES1')
             self.EStep1()
             self._retry_count = self._retry_count - 1
@@ -158,7 +158,7 @@ class FingerPrintScanner():
             self._retry_count = 10
             self.EStep2()
             self._ES1 = False
-            while not self._ES2 and self._retry_count > 0 and not self._ES2_2 == 0:
+            while (not self._ES2 or not self._ES2_2 == 0) and self._retry_count > 0:
                 print('Retrying ES2')
                 self.EStep2()
                 self._retry_count = self._retry_count - 1
@@ -167,7 +167,7 @@ class FingerPrintScanner():
                 self._retry_count = 10
                 self.EStep3()
                 self._ES2 = False
-                while not self._ES3 and self._retry_count > 0 and not self._ES3_2 == 0:
+                while (not self._ES3 or not self._ES3_2 == 0) and self._retry_count > 0:
                     print('Retrying ES3')
                     self.EStep3()
                     self._retry_count = self._retry_count - 1
