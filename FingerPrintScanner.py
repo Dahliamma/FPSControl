@@ -229,6 +229,6 @@ if __name__ == "__main__":
         test.finger_identify()
     if testloop == 4:
         print('Are you sure? (Y/N)')
-        del_check = input()
+        del_check = raw_input()
         if del_check.lower is 'y':
             self.fps.DeleteAll()
