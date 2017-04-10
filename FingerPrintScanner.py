@@ -33,8 +33,11 @@ class FingerPrintScanner():
         self._enroll_check = None
         self._retry_count = 10
         self._ES1 = False
+        self._ES1_2 = None
         self._ES2 = False
+        self._ES2_2 = None
         self._ES3 = False
+        self._ES3_2 = None
         self._idchk = False
 
     def finger_test(self):
@@ -86,8 +89,8 @@ class FingerPrintScanner():
             counter = counter + 1
         sleep(0.5)
         if self._ES1 == True:
-            self._enroll_check = self.fps.Enroll1()
-            print(str(self._enroll_check))
+            self._ES1_2 = self.fps.Enroll1()
+            print(str(self._ES1_2))
         #return self._ES1
 
     def EStep2(self):
@@ -107,8 +110,8 @@ class FingerPrintScanner():
             counter = counter + 1
         sleep(0.5)
         if self._ES2 == True:
-            self._enroll_check = self.fps.Enroll2()
-            print(str(self._enroll_check))
+            self._ES2_2 = self.fps.Enroll2()
+            print(str(self._ES2_2))
         #return self._ES2
 
     def EStep3(self):
@@ -130,9 +133,9 @@ class FingerPrintScanner():
         if self._ES3 == True:
             # pdb.set_trace()
             # print('Before E3'+str(self.fps._serial.inWaiting()))
-            self._enroll_check = self.fps.Enroll3()
+            self._ES3_3 = self.fps.Enroll3()
             # print('After E3: '+str(self.fps._serial.inWaiting()))
-            print(str(self._enroll_check))
+            print(str(self._ES3_3))
         #return self._ES3
 
     def EStep4(self):
@@ -146,29 +149,29 @@ class FingerPrintScanner():
     def finger_enroll(self):
         self.EStep0()
         self.EStep1()
-        while not self._ES1 and self._retry_count > 0:
+        while not self._ES1 and self._retry_count > 0 and self._ES1_2 != 0:
             print('Retrying ES1')
             self.EStep1()
             self._retry_count = self._retry_count - 1
-        if self._ES1 == True:
+        if self._ES1 == True and self._ES1_2 == 0:
             print('ES1 Succeeded')
             self._retry_count = 10
             self.EStep2()
             self._ES1 = False
-            while not self._ES2 and self._retry_count > 0:
+            while not self._ES2 and self._retry_count > 0 and self._ES2_2 != 0:
                 print('Retrying ES2')
                 self.EStep2()
                 self._retry_count = self._retry_count - 1
-            if self._ES2 == True:
+            if self._ES2 == True and self._ES2_2 == 0:
                 print('ES2 Succeeded')
                 self._retry_count = 10
                 self.EStep3()
                 self._ES2 = False
-                while not self._ES3 and self._retry_count > 0:
+                while not self._ES3 and self._retry_count > 0 and self._ES3_2 != 0:
                     print('Retrying ES3')
                     self.EStep3()
                     self._retry_count = self._retry_count - 1
-                if self._ES3 == True:
+                if self._ES3 == True and self._ES3_2 == 0:
                     print('ES3 Succeeded')
                     self._retry_count = 10
                     self.EStep4()
