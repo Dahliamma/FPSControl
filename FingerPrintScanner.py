@@ -67,7 +67,7 @@ class FingerPrintScanner():
         i = 0
         while i < 200:
             already_used_check = self.fps.CheckEnrolled(i)
-            if already_used_check:
+            if not already_used_check:
                 self._finger_number = i
                 i = 200
             else:
