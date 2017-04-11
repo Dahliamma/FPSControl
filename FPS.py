@@ -661,14 +661,13 @@ class FPS_GT511C3(SerialCommander):
         packetbytes = cp.GetPacketBytes()
         self.SendCommand(packetbytes, 12)
         rp = self.GetResponse()
-        dir(rp)
         retval = rp.IntFromParameter()
         if retval > MAX_FINGER:
             retval = MAX_FINGER
         del rp
         del packetbytes
         del cp
-        return retval
+        return retval, rp
     
     
     def CaptureFinger(self,highquality=True):
