@@ -48,7 +48,7 @@ class FingerPrintScanner():
         print('Place finger on scanner.')
         while not self.fps.IsPressFinger():
             print('Place finger on scanner.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
@@ -85,11 +85,11 @@ class FingerPrintScanner():
         self._ES1_2 = False
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         while not self.fps.IsPressFinger():
             print('Touch the scanner for the first enrollment scan.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         print('Keep finger on scanner.')
         counter = 0
@@ -113,11 +113,11 @@ class FingerPrintScanner():
         self._ES2_2 = False
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         while not self.fps.IsPressFinger():
             print('Touch the scanner for the second enrollment scan.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         print('Keep finger on scanner.')
         counter = 0
@@ -141,11 +141,11 @@ class FingerPrintScanner():
         self._ES3_2 = False
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         while not self.fps.IsPressFinger():
             print('Touch the scanner for the third enrollment scan.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         print('Keep finger on scanner.')
         counter = 0
@@ -205,11 +205,11 @@ class FingerPrintScanner():
         sleep(1)
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         while not self.fps.IsPressFinger():
             print('Place finger on scanner for identification.')
-            self.fps.delay(1)
+            #self.fps.delay(1)
             sleep(0.5)
         print('Thank you for touching me. Keep it up.')
         print('Beginning identification process.')
