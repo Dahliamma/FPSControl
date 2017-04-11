@@ -227,6 +227,7 @@ if __name__ == "__main__":
         del_check = input()
         if del_check == 1:
             del_check_check = False
+            test.fps.Open()
             while not del_check_check:
                 print('Deleteing...')
                 del_check_check = test.fps.DeleteAll()
