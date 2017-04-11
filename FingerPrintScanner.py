@@ -225,7 +225,7 @@ if __name__ == "__main__":
     if testloop == 4:
         print('Are you sure? (Y/N)')
         del_check = raw_input()
-        print(del_check)
+        print(del_check.lower())
         if del_check.lower() is 'y':
             del_check_check = False
             while not del_check_check:
