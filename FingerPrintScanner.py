@@ -223,10 +223,9 @@ if __name__ == "__main__":
     print('1. Enroll. | 2. Identify. | 3. Enroll and Identify. | 4. DeleteAll.')
     testloop = input('Choice: ')
     if testloop == 4:
-        print('Are you sure? (Y/N)')
-        del_check = raw_input()
-        print(del_check.lower() is 'y')
-        if del_check.lower() is 'y':
+        print('Are you sure? (0=N | 1=Y)')
+        del_check = input()
+        if del_check == 1:
             del_check_check = False
             while not del_check_check:
                 print('Deleteing...')
