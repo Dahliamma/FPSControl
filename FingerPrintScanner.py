@@ -72,6 +72,8 @@ class FingerPrintScanner():
             return False
 
     def EStep1(self):
+        self._ES1 = False
+        self._ES1_2 = False
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
             self.fps.delay(1)
@@ -98,6 +100,8 @@ class FingerPrintScanner():
             return True
 
     def EStep2(self):
+        self._ES2 = False
+        self._ES2_2 = False
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
             self.fps.delay(1)
@@ -124,6 +128,8 @@ class FingerPrintScanner():
             return True
 
     def EStep3(self):
+        self._ES3 = False
+        self._ES3_2 = False
         while self.fps.IsPressFinger():
             print('Remove finger momentarily.')
             self.fps.delay(1)
