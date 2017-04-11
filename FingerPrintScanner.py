@@ -208,7 +208,7 @@ class FingerPrintScanner():
         counter = 0
         self._idchk = False
         while counter <= 50 and not self._idchk:
-            self._idchk = self.fps.CaptureFinger(True)
+            self._idchk = self.fps.CaptureFinger(False)
             sleep(0.1)
             counter = counter +1
         if self._idchk:
