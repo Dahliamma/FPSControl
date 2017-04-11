@@ -664,10 +664,10 @@ class FPS_GT511C3(SerialCommander):
         retval = rp.IntFromParameter()
         if retval > MAX_FINGER:
             retval = MAX_FINGER
-        #del rp
+        del rp
         del packetbytes
         del cp
-        return retval, rp
+        return retval
     
     
     def CaptureFinger(self,highquality=True):
