@@ -208,7 +208,7 @@ class FingerPrintScanner():
         counter = 0
         self._idchk = False
         while counter <= 50 and not self._idchk:
-            self._idchk = self.fps.CaptureFinger()
+            self._idchk = self.fps.CaptureFinger(False)
             sleep(0.5)
             counter = counter +1
         if self._idchk:
@@ -229,7 +229,7 @@ class FingerPrintScanner():
         for j in range(5):
             print(str(self._collected_scans[i-1]))
         self._true_scan_number = self._collected_scans.most_common(1)"""
-        #self.fps.Open()
+        self.fps.Open()
         self.fps.SetLED(False)
         print('Identified ID:'+str(self._true_scan_number))
         return self._true_scan_number
