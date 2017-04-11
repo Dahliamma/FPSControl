@@ -2,7 +2,7 @@
 Fingerprint Class
 
 """
-import pyGT511C3 as FPS
+import FPS as FPS
 print('Imported FPS')
 from collections import Counter
 print('Imported Counter')
