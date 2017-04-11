@@ -226,7 +226,7 @@ if __name__ == "__main__":
         print('Are you sure? (Y/N)')
         del_check = raw_input()
         print(del_check)
-        if del_check.lower is 'y':
+        if del_check.lower() is 'y':
             del_check_check = False
             while not del_check_check:
                 print('Deleteing...')
