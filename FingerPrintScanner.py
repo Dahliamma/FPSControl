@@ -57,12 +57,21 @@ class FingerPrintScanner():
         self.fps.SetLED(False)
 
     def EStep0(self):
+        already_used_check = None
         self.fps.SetLED(True)
         sleep(1)
         print('Beginning enrollment process.')
         self.fps.Open()
-        self._finger_number = self.fps.GetEnrollCount()
-        print("BE enroll count: " + str(self._finger_number))
+        #self._finger_number = self.fps.GetEnrollCount()
+        print("BE enroll count: " + str(self.fps.GetEnrollCount()))
+        i = 0
+        while i < 200:
+            already_used_check = self.fps.CheckEnrolled(i)
+            if already_used_check:
+                self._finger_number = i
+                i = 200
+            else:
+                i = i + 1
         print("Attempting to enroll to ID #: " + str(self._finger_number))
         already_used_check = self.fps.EnrollStart(self._finger_number)
         print('Already used check: '+str(already_used_check))
