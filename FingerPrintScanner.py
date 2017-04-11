@@ -222,15 +222,16 @@ if __name__ == "__main__":
     test = FingerPrintScanner()
     print('1. Enroll. | 2. Identify. | 3. Enroll and Identify. | 4. DeleteAll.')
     testloop = input('Choice: ')
-    sleep(2)
-    if testloop == 1 or testloop == 3:
-        test.finger_enroll()
-    if testloop == 2 or testloop == 3:
-        test.finger_identify()
     if testloop == 4:
         print('Are you sure? (Y/N)')
         del_check = raw_input()
         if del_check.lower is 'y':
             del_check_check = False
             while not del_check_check:
+                print('Deleteing...')
                 del_check_check = test.fps.DeleteAll()
+    sleep(2)
+    if testloop == 1 or testloop == 3:
+        test.finger_enroll()
+    if testloop == 2 or testloop == 3:
+        test.finger_identify()
