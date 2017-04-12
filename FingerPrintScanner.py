@@ -240,7 +240,7 @@ class FingerPrintScanner():
                 j += 1
         self._finger_scan_number = temp_scans
         self._collected_scans = Counter(self._finger_scan_number)
-        for j in range(10):
+        for j in range(5):
             print(str(self._finger_scan_number[j]))
         self._true_scan_number = self._collected_scans.most_common(1)
         self.fps.Open()
