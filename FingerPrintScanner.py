@@ -9,6 +9,7 @@ print('Imported Counter')
 from time import sleep
 import pdb
 
+
 class FingerPrintScanner():
     """
     FingerPrintScanner Class
@@ -23,9 +24,6 @@ class FingerPrintScanner():
         self.fps = FPS.FPS_GT511C3(device_name='/dev/ttyAMA0', baud=9600, timeout=2, is_com=False)
         self.fps.UseSerialDebug = False
         print('Scanner connected')
-        #self.fps.DeleteAll() #Deleting all enrolled fingerprints for debugging reasons
-        self._image = None
-        #self.finger_test()
         self._finger_number = None
         self._finger_scan_number = [None] * 10
         self._collected_scans = None
@@ -53,7 +51,6 @@ class FingerPrintScanner():
         print('Thank you for touching me.')
         print('Capturing fingerprint.')
         self.fps.CaptureFinger(True)
-        self._image = self.fps.GetImage()
         self.fps.SetLED(False)
 
     def EStep0(self):
@@ -234,7 +231,7 @@ class FingerPrintScanner():
                 counter = counter + 1
             self._finger_scan_number[i] = self.fps.Identify1_N()
             self._idchk = False
-        self._collected_scans = Counter(self._finger_scan_number)
+        self._collected_scans = Counter(self._finger_scan_number[1, 3, 5, 7, 9])
         for j in range(10):
             print(str(self._finger_scan_number[j]))
         self._true_scan_number = self._collected_scans.most_common(1)
