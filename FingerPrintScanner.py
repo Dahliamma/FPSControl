@@ -232,9 +232,11 @@ class FingerPrintScanner():
             self._finger_scan_number[i] = self.fps.Identify1_N()
             self._idchk = False
         for i in range(5):
-            temp_scans = self._finger_scan_number[1]
+            temp_scans = [] * 5
+            temp_scans[1] = self._finger_scan_number[1]
             if i == 3 or i == 5 or i == 7 or i == 9:
-                temp_scans.append(self._finger_scan_number[i])
+                temp_scans[i] = (self._finger_scan_number[i])
+        self._finger_scan_number = temp_scans
         self._collected_scans = Counter(self._finger_scan_number)
         for j in range(10):
             print(str(self._finger_scan_number[j]))
