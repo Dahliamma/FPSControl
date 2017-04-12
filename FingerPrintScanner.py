@@ -61,7 +61,7 @@ class FingerPrintScanner():
         self.fps.Open()
         #self._finger_number = self.fps.GetEnrollCount()
         print("BE enroll count: " + str(self.fps.GetEnrollCount()))
-        i = 0
+        i = 1
         while i < 200:
             already_used_check = self.fps.CheckEnrolled(i)
             if not already_used_check:
@@ -237,7 +237,9 @@ class FingerPrintScanner():
         self._true_scan_number = self._collected_scans.most_common(1)
         self.fps.Open()
         self.fps.SetLED(False)
-        print('Identified ID: '+str(self._true_scan_number))
+        print('Identified ID: ' + str(self._true_scan_number))
+        if self._true_scan_number == 0:
+            self._true_scan_number = 200
         return self._true_scan_number
 
 if __name__ == "__main__":
