@@ -12,11 +12,13 @@ import binascii
 import pdb
 
 MAX_FINGER=200
+
 def delay(seconds):
     '''
     wait a number of secons 
     '''
     time.sleep(seconds)
+
 
 def serial_ports():
     '''
@@ -326,8 +328,16 @@ class FPS_GT511C3(SerialCommander):
             self.Open()
         elif self.UseSerialDebug:
             print '[FPS_GT511C3] No es posible conectar con el dispositivo %s' % self._device_name
-            
-     
+
+    def delay(self, seconds):
+        old_serial = 0
+        new_serial = 1
+        time.sleep(0.2)
+        while not old_serial == new_serial:
+            old_serial = new_serial
+            new_serial = self._serial.inWaiting()
+            time.sleep(0.1)
+
     def Open(self):
         '''
             Initialises the device and gets ready for commands
@@ -806,7 +816,7 @@ class FPS_GT511C3(SerialCommander):
             #print 'Packet size: %i'% len(r)
             rp = Response_Packet(r,self.UseSerialDebug)
 
-# SL - unknown the purpose of this code for obtaining an additional response packet 
+# SL - unknown the purpose of this code for obtaining an additional response packet
 #   after the initial response packet has already been fetched
 #        if rp.ACK:
 #            delay(interval)
@@ -818,5 +828,5 @@ class FPS_GT511C3(SerialCommander):
 #                delay(interval)
 #                r2 = bytearray(self._serial.read(self._serial.inWaiting()))
 #                rp2 = Response_Packet(r2,self.UseSerialDebug)
-#        self._lastResponse = rp
+        self._lastResponse = rp
         return rp
