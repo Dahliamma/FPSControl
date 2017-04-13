@@ -828,5 +828,5 @@ class FPS_GT511C3(SerialCommander):
 #                delay(interval)
 #                r2 = bytearray(self._serial.read(self._serial.inWaiting()))
 #                rp2 = Response_Packet(r2,self.UseSerialDebug)
-#        self._lastResponse = rp
+        self._lastResponse = rp
         return rp
