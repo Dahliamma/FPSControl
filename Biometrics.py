@@ -62,7 +62,6 @@ class FingerPrintScanner():
         sleep(1)
         print('Beginning enrollment process.')
         self.fps.Open()
-        #self._finger_number = self.fps.GetEnrollCount()
         print("BE enroll count: " + str(self.fps.GetEnrollCount()))
         i = 1
         while i < 200:
@@ -214,17 +213,6 @@ class FingerPrintScanner():
         print('Thank you for touching me. Keep it up.')
         print('Beginning identification process.')
         self.fps.Open()
-        """counter = 0
-        self._idchk = False
-        while counter <= 50 and not self._idchk:
-            self._idchk = self.fps.CaptureFinger(False)
-            sleep(0.1)
-            counter = counter + 1
-        if self._idchk:
-            print('Finger scanned. Identifying...')
-            self._true_scan_number = self.fps.Identify1_N()
-        else:
-            print('Couldn\'t scan finger.')"""
         for i in range(10):
             counter = 0
             while counter <= 50 and not self._idchk:
