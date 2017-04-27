@@ -198,6 +198,8 @@ class FingerPrintScanner():
             self._enroll_check = self.enroll_process()
         if not self._enroll_check:
             print('Enrollmet Failed.')
+        return self._enroll_check
+
 
     def finger_identify(self):
         self.fps.SetLED(True)
@@ -258,6 +260,8 @@ class User():
         self._r_sheet = self._rb.sheet_by_index(0)
         self._wb = copy(self._rb)
         self._w_sheet = self._wb.get_sheet(0)
+        self._unregistered_users = [None]
+        self._unregistered_rows = [None]
 
     def user_recall(self):
         recall_check = False
@@ -287,27 +291,11 @@ class User():
                 counter += 1
         return recall_check
 
-    def user_register(self, email):
+    def user_register(self, unregistered_number):
         register_check = False
-        print(email)
-        exist_check = self.user_recall()
-        if not exist_check:
-            counter = 1
-            while counter < self._r_sheet.nrows:
-                print(str(self._r_sheet.cell(counter, 2).value).lower())
-                print(email.lower())
-                print(str(self._r_sheet.cell(counter, 2).value).lower() == email.lower())
-                if str(self._r_sheet.cell(counter, 2).value).lower() == email.lower():
-                    self._w_sheet.write(counter, 6, self._ID)
-                    self._w_sheet.write(counter, 5, 0)
-                    self._working_row = counter
-                    print('Writing data in row: ' + str(self._working_row))
-                    counter = self._r_sheet.nrows
-                    register_check = True
-                else:
-                    counter += 1
-        else:
-            print('Supplied ID already registered to: ' + self._first_name + ' ' + self._last_name)
+        self._working_row = int(self._unregistered_rows[unregistered_number])
+        self._w_sheet.write(self._working_row, 6, self._ID)
+        self._w_sheet.write(self._working_row, 5, 0)
 
         self._wb.save('UserData.xls')
         return register_check
@@ -315,6 +303,20 @@ class User():
     def database_update(self):
         #Not yet implemented
         return
+
+    def find_unregistered(self):
+        j = 0
+        for i in range (self._r_sheet.nrows()):
+            if self._r_sheet.cell_type(i, 6) == 0:
+                if j == 0:
+                    self._unregistered_users[j] = str(self._r_sheet.cell(i, 0).value) + str(self._r_sheet.cell(i, 1).value)
+                    self._unregistered_rows[j] = i
+                    j += 1
+                else:
+                    self._unregistered_users.append(str(self._r_sheet.cell(i, 0).value) + str(self._r_sheet.cell(i, 1).value))
+                    self._unregistered_rows.append(i)
+                    j += 1
+        return self._unregistered_users
 
     def user_update(self, offense, new_strength, new_volume):
         change_check = [False] * 3
