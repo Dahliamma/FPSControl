@@ -1,6 +1,6 @@
 from Tkinter import *
 import Tkinter as Tk
-import Tkinter.messagebox as Tk.messagebox
+import tkMessageBox
 import pdb
 #import fingerprintscanner as fingerprintscanner
 #import LEDactivate as LED
@@ -35,7 +35,7 @@ def newuser_protocol():
     for name in unregistered_users:     #Load up Namebox with unregistered users
         Namebox.insert(END,name)
     Namebox.select_set(0)   #Set selected value as top Namebox index: prevents mis-naming
-    Tk.messagebox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
+    tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
     #LED.Blink(4,5,100,100,100)   #Blink blue LED
     #xx = fingerprintscanner.finger_enroll()    #Call enrollment function
     if xx == True:
@@ -47,20 +47,20 @@ def newuser_protocol():
             Textbox_update("Welcome, "+ x +".\n You can now order your drink.")
     else:
         #LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
-        Tk.messagebox.showerror("Registration Failed.","An error occurred during enrollment. Please try again.")
+        tkMessageBox.showerror("Registration Failed.","An error occurred during enrollment. Please try again.")
     
 #SIGN IN USER PROTOCOL 
 check = BooleanVar()  #Prototype recognize variable "check"
 check.set(False)    #Initialize check to "false", prevents automatic acceptance of user
 def signin_protocol():
-    Tk.messagebox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
+    tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     #check = fingerprintscanner.recognize()
     if check == True:
         accept = True
         #Retrieve user name for message prompting
     else:
         accept = False
-        Tk.messagebox.showinfo("Access Denied","You don't have permission to use this coffee maker.")
+        tkMessageBox.showinfo("Access Denied","You don't have permission to use this coffee maker.")
 
 #TRIGGER BREWING PROTOCOL
 accept = BooleanVar()   #prototype acceptance variable
@@ -76,16 +76,16 @@ def brew_trigger(volume_value,strength_value):
         y = "medium"
     else:
         y = "strong"
-    ans = Tk.messagebox.askokcancel("Order Accepted","Thank you for your selection!\nYou ordered " + str(volume_value) + " cups of " + str(y) + " coffee.\nReady to brew?",default="cancel")
+    ans = tkMessageBox.askokcancel("Order Accepted","Thank you for your selection!\nYou ordered " + str(volume_value) + " cups of " + str(y) + " coffee.\nReady to brew?",default="cancel")
     if ans == True:
         if accept == True:
             #bean_count = LoadCell weight protocol
                 if bean_count == 0:
-                    Tk.messagebox.showerror("Grinder Needs More Beans","There are too few beans to fill your order.\n Please add more before proceeding.")
+                    tkMessageBox.showerror("Grinder Needs More Beans","There are too few beans to fill your order.\n Please add more before proceeding.")
             #user.strengthpreference = strength_value
             #user.volumepreference = volume_value
         else:
-            Tk.messagebox.showerror("User Not Signed In","Looks like you still need to sign in.\nPlease select your user status and scan your finger.")
+            tkMessageBox.showerror("User Not Signed In","Looks like you still need to sign in.\nPlease select your user status and scan your finger.")
 
 #UPDATE TEXTBOX METHOD
 x = StringVar()
