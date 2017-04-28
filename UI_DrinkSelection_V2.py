@@ -11,6 +11,7 @@ import pdb
 ###
 master = Tk.Tk() #Makes the UI window
 master.wm_title("UI Drink Selection") #TItle of UI window
+master.wm_attributes("-fullscreen", True)
 #master.config(background = "#FFFFFF") #Background UI color
 
 ###
@@ -26,7 +27,6 @@ unregistered_users = [None]*50
 for i in range(50):
     unregistered_users[i] = i
 ###
-Tk.attributes("-fullscreen", True)
 xx = BooleanVar()
 xx.set(False)
 def newuser_protocol():
