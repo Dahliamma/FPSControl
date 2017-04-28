@@ -26,6 +26,7 @@ unregistered_users = [None]*50
 for i in range(50):
     unregistered_users[i] = i
 ###
+Tk.attributes("-fullscreen", True)
 xx = BooleanVar()
 xx.set(False)
 def newuser_protocol():
