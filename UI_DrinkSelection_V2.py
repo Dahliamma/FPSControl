@@ -95,13 +95,13 @@ def Textbox_update(x):
 # Frame Prototypes for Widget Organization
 ###
 #Left Frame
-LFrame = Tk.Frame(master, width=200, height = 600)
+LFrame = Tk.Frame(master, width=200, height = 800)
 LFrame.grid(row=0, column=0, padx=10, pady=2)
 #Middle frame
-MFrame = Tk.Frame(master,width=200,height=600)
+MFrame = Tk.Frame(master,width=200,height=800)
 MFrame.grid(row=0,column=1,padx=10,pady=2)
 #Right Frame
-RFrame = Tk.Frame(master, width=200, height = 600)
+RFrame = Tk.Frame(master, width=200, height = 800)
 RFrame.grid(row=0, column=2, padx=10, pady=2)
 #Subframe for Account Buttons
 Accounts_btnFrame = Tk.Frame(LFrame, width=200, height = 200)
