@@ -1,5 +1,5 @@
 from tkinter import *
-import tkinter as Tk
+import python3-tk as Tk
 import pdb
 #import fingerprintscanner as fingerprintscanner
 #import LEDactivate as LED
