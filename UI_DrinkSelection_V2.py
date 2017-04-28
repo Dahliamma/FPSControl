@@ -1,6 +1,6 @@
 from Tkinter import *
 import Tkinter as Tk
-import Tkinter.messagebox
+import Tkinter.messagebox as Tk.messagebox
 import pdb
 #import fingerprintscanner as fingerprintscanner
 #import LEDactivate as LED
