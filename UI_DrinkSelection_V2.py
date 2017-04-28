@@ -11,8 +11,8 @@ import pdb
 ###
 master = Tk.Tk() #Makes the UI window
 master.wm_title("UI Drink Selection") #TItle of UI window
-master.wm_attributes("-fullscreen", True)
 master.bind("<Escape>", master.wm_attributes("-fullscreen", False))
+master.bind("<F11>", master.wm_attributes("-fullscreen", True))
 #master.config(background = "#FFFFFF") #Background UI color
 
 ###
