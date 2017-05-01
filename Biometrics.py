@@ -401,7 +401,7 @@ class LEDactivate():
 
     def led_work(self):
         while True: #Infinite loop
-            while self.state == 0 and self.color == 1: #Blinking
+            while self.state == 0: #Blinking
                 if self.color == 1: #RED
                     for i in range (100): #Ramping up intensity to 100
                         self.RED.ChangeDutyCycle(i)
