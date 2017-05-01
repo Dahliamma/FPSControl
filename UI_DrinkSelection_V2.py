@@ -74,7 +74,7 @@ def signin_update():
         print('yasdyfoasdyf')
         if scanner._status == 1:
             print('a;lsdfha;lskdfjh')
-            #Textbox_update(str(scanner._status_string))
+            Textbox_update(str(scanner._status_string))
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
             scanner._status = 2
     scanner._cont = True
@@ -134,7 +134,7 @@ def brew_trigger(volume_value,strength_value):
 #UPDATE TEXTBOX METHOD
 x = StringVar()
 def Textbox_update(x):
-    Textbox.insert(0.0,x)
+    Textbox.insert(0.0,x+"\n\n")
 
 ###
 # Frame Prototypes for Widget Organization
