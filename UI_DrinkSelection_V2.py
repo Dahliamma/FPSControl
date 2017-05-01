@@ -106,8 +106,8 @@ def brew_trigger(volume_value,strength_value):
     if ans == True:
         if accept == True:
             #bean_count = LoadCell weight protocol
-                if bean_count == 0:
-                    tkMessageBox.showerror("Grinder Needs More Beans","There are too few beans to fill your order.\n Please add more before proceeding.")
+            if bean_count == 0:
+                tkMessageBox.showerror("Grinder Needs More Beans","There are too few beans to fill your order.\n Please add more before proceeding.")
             sleep(5)
             ans = tkMessageBox.askokcancel("Filter Cleaning", "Did you clean the filter?\nPress OK if you have, Cancel if you haven't", default="cancel")
             if ans == False:
