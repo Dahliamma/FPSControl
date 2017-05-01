@@ -351,11 +351,11 @@ class User():
         for i in range(self._r_sheet.nrows):
             if self._r_sheet.cell_type(i, 6) == 0:
                 if j == 0:
-                    self._unregistered_users[j] = str(self._r_sheet.cell(i, 0).value) + str(self._r_sheet.cell(i, 1).value)
+                    self._unregistered_users[j] = str(self._r_sheet.cell(i, 0).value) + ' ' + str(self._r_sheet.cell(i, 1).value)
                     self._unregistered_rows[j] = i
                     j += 1
                 else:
-                    self._unregistered_users.append(str(self._r_sheet.cell(i, 0).value) + str(self._r_sheet.cell(i, 1).value))
+                    self._unregistered_users.append(str(self._r_sheet.cell(i, 0).value) + ' ' + str(self._r_sheet.cell(i, 1).value))
                     self._unregistered_rows.append(i)
                     j += 1
         return self._unregistered_users
