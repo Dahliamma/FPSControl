@@ -571,7 +571,7 @@ def newuser_continue():
         if not index == 0:
             x = Namebox.get(ACTIVE)
             pdb.set_trace()
-            cur_user.user_register(index, scanner._finger_number)
+            cur_user.user_register(index-1, scanner._finger_number)
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
     else:
         # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
