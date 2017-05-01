@@ -68,7 +68,7 @@ def newuser_protocol():
     scanner._enthread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     scanner._enthread.start()
     n = threading.Thread(name='enroll', target=newuser_update)
-    n.start
+    n.start()
     
 #SIGN IN USER PROTOCOL 
 check = BooleanVar()  #Prototype recognize variable "check"
