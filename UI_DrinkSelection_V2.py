@@ -13,8 +13,8 @@ master = Tk.Tk() #Makes the UI window
 master.wm_title("UI Drink Selection") #TItle of UI window
 master.wm_attributes("-fullscreen", True)
 lights = LEDactivate(0, 3) #Creating the LED object as blue, blinking initially
-led_thread = threading.Thread(name='LED_Control', target=lights.led_work) #Starting led_work in the background
-led_thread.start()
+#led_thread = threading.Thread(name='LED_Control', target=lights.led_work) #Starting led_work in the background
+#led_thread.start()
 scanner = FingerPrintScanner()
 cur_user = User()
 
