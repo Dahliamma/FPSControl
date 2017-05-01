@@ -569,6 +569,7 @@ def newuser_continue():
             index = Namebox.curselection()
         if not index == 0:
             x = Namebox.get(ACTIVE)
+            pdb.set_trace()
             cur_user.user_register(index, scanner._finger_number)
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
     else:
