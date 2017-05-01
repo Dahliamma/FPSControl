@@ -78,18 +78,6 @@ def signin_update():
             Textbox_update(str(scanner._status_string))
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
             scanner._status = 2
-    scanner._cont = True
-
-def signin_protocol():
-    #tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
-    sleep(1)
-    scanner._idthread = threading.Thread(name='identify', target = scanner.finger_identify)
-    scanner._idthread.start()
-    scanner._cont = False
-    u = threading.Thread(name='updater', target=signin_update)
-    u.start()
-    while not scanner._cont:
-        sleep(1)
     identified_finger = scanner._true_scan_number
     if identified_finger < 200 and identified_finger > 0:
         check = True
@@ -100,7 +88,17 @@ def signin_protocol():
         cur_user.user_recall(identified_finger)
     else:
         accept = False
-        tkMessageBox.showinfo("Access Denied","You don't have permission to use this coffee maker.")
+        tkMessageBox.showinfo("Access Denied", "You don't have permission to use this coffee maker.")
+
+def signin_protocol():
+    #tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
+    sleep(1)
+    scanner._idthread = threading.Thread(name='identify', target = scanner.finger_identify)
+    scanner._idthread.start()
+    scanner._cont = False
+    u = threading.Thread(name='updater', target=signin_update)
+    u.start()
+
 
 #TRIGGER BREWING PROTOCOL
 accept = BooleanVar()   #prototype acceptance variable
