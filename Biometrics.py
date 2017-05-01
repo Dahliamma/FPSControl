@@ -398,7 +398,6 @@ class LEDactivate():
         self.BLUE.start(0)
         self.state = state
         self.color = color
-        self.led_work()
 
     def led_work(self):
         while True: #Infinite loop
