@@ -235,6 +235,7 @@ class FingerPrintScanner():
         else:
             self.custom_print('Enrollment Succeeded', 'steady', 'green')
             self.reset_state()
+        newuser_continue()
         return self._enroll_check
 
 
@@ -282,7 +283,6 @@ class FingerPrintScanner():
         #print('Identified ID: ' + str(self._true_scan_number))
         if self._true_scan_number == 0:
             self._true_scan_number = 200
-        newuser_continue()
         return self._true_scan_number
 
 class User():
