@@ -72,7 +72,6 @@ check.set(False)    #Initialize check to "false", prevents automatic acceptance 
 def signin_update(identify_thread):
     while identify_thread.is_alive():
         if scanner._status == 1:
-            scanner._status = 2
             Textbox_update(scanner._status_string)
             lights.led_change(scanner._led_state[0], scanner._led_state[1])
             scanner._status = 2
