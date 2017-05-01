@@ -103,6 +103,7 @@ def signin_protocol():
     scanner._idthread = threading.Thread(name='identify', target=scanner.finger_identify)
     scanner._idthread.start()
     u = Process(name='updater', target=signin_update)
+    pdb.set_trace()
     u.start()
 
 #TRIGGER BREWING PROTOCOL
