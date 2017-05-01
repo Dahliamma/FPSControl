@@ -239,7 +239,6 @@ class FingerPrintScanner():
 
 
     def finger_identify(self):
-        global idthreadstatus
         idthreadstatus = True
         self.fps.SetLED(True)
         sleep(1)

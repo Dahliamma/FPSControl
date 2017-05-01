@@ -18,6 +18,7 @@ led_thread = threading.Thread(name='LED_Control', target=lights.led_work) #Start
 led_thread.start()
 scanner = FingerPrintScanner()
 cur_user = User()
+global idthreadstatus
 
 #master.config(background = "#FFFFFF") #Background UI color
 
@@ -79,8 +80,7 @@ def signin_update():
     print('Entered signin_update')
     check = BooleanVar()  # Prototype recognize variable "check"
     check.set(False)
-    scanner._idthread.join()
-    print(scanner._idthreadstatus)
+    print(idthreadstatus)
     while idthreadstatus:
         if scanner._status == 1:
             Textbox_update(str(scanner._status_string))
