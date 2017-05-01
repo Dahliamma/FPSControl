@@ -133,6 +133,7 @@ def brew_trigger(volume_value,strength_value):
 
 #UPDATE TEXTBOX METHOD
 def Textbox_update(x):
+    pdb.set_trace()
     Textbox.insert(0.0,x+"\n\n")
 
 
@@ -170,7 +171,6 @@ string_test = StringVar()
 string_test = "Welcome to the Dept. of BIOE  Rube Goldberg Coffee Maker.\nPlease register or sign in.\n"
 Textbox = Tk.Text(LFrame, width = 30, height = 10, takefocus=0)
 Textbox.grid(row=2, column=0, padx=10, pady=2)
-pdb.set_trace()
 Textbox.insert(0.0,string_test)
 
 ###
