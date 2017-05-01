@@ -23,8 +23,6 @@ class FingerPrintScanner():
         self._cont = None
         self._idthread = None
         self._enthread = None
-        self._idthreadstatus = None
-        self._enthreadstatus = None
         self._status = 0
         self._status_string = None
         self._led_state = [None] * 2
@@ -239,7 +237,6 @@ class FingerPrintScanner():
 
 
     def finger_identify(self):
-        idthreadstatus = True
         self.fps.SetLED(True)
         sleep(1)
         while self.fps.IsPressFinger():
@@ -283,7 +280,6 @@ class FingerPrintScanner():
         #print('Identified ID: ' + str(self._true_scan_number))
         if self._true_scan_number == 0:
             self._true_scan_number = 200
-        idthreadstatus = False
         return self._true_scan_number
 
 class User():
