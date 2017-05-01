@@ -72,6 +72,7 @@ def newuser_protocol():
     scanner._enthread.start()
     n = Process(name='enroll', target=newuser_update)
     n.start()
+    n.join()
     
 #SIGN IN USER PROTOCOL 
 check = BooleanVar()  #Prototype recognize variable "check"
@@ -102,6 +103,7 @@ def signin_protocol():
     scanner._idthread.start()
     u = Process(name='updater', target=signin_update)
     u.start()
+    u.join()
 
 
 #TRIGGER BREWING PROTOCOL
