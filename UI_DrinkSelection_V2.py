@@ -96,7 +96,8 @@ def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     sleep(1)
     scanner._idthread = threading.Thread(name='identify', target = scanner.finger_identify)
-    scanner._idthread.start()    u = threading.Thread(name='updater', target=signin_update)
+    scanner._idthread.start()
+    u = threading.Thread(name='updater', target=signin_update)
     u.start()
 
 
