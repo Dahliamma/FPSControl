@@ -345,7 +345,7 @@ class User():
 
     def find_unregistered(self):
         j = 0
-        for i in range (self._r_sheet.nrows()):
+        for i in range(self._r_sheet.nrows):
             if self._r_sheet.cell_type(i, 6) == 0:
                 if j == 0:
                     self._unregistered_users[j] = str(self._r_sheet.cell(i, 0).value) + str(self._r_sheet.cell(i, 1).value)
