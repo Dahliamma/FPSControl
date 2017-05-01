@@ -39,7 +39,7 @@ for i in range(50):
 xx = BooleanVar()
 xx.set(False)
 
-def newuser_update:
+def newuser_update():
     enroll_thread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     enroll_thread.start()
     while enroll_thread.is_alive():
