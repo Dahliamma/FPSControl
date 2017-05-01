@@ -41,6 +41,7 @@ xx = BooleanVar()
 xx.set(False)
 
 def newuser_update():
+    print('Entered newuser_update')
     while scanner._enthread.is_alive():
         if scanner._status == 1:
             Textbox_update(scanner._status_string)
@@ -75,6 +76,7 @@ def newuser_protocol():
 
 #SIGN IN USER PROTOCOL 
 def signin_update():
+    print('Entered signin_update')
     check = BooleanVar()  # Prototype recognize variable "check"
     check.set(False)
     while scanner._idthread.is_alive():
