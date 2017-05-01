@@ -68,17 +68,26 @@ def newuser_protocol():
 #SIGN IN USER PROTOCOL 
 check = BooleanVar()  #Prototype recognize variable "check"
 check.set(False)    #Initialize check to "false", prevents automatic acceptance of user
-def signin_protocol():
-    #tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
-    sleep(1)
-    identify_thread = threading.Thread(name='identify', target = scanner.finger_identify)
-    identify_thread.start()
+
+def signin_update(identify_thread):
     while identify_thread.is_alive():
         if scanner._status == 1:
             scanner._status = 2
             Textbox_update(scanner._status_string)
             lights.led_change(scanner._led_state[0], scanner._led_state[1])
             scanner._status = 2
+    scanner._cont = True
+
+def signin_protocol():
+    #tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
+    sleep(1)
+    identify_thread = threading.Thread(name='identify', target = scanner.finger_identify)
+    identify_thread.start()
+    scanner._cont = False
+    u = threading.Thread(name='updater', target='signin_update', args=identify_thread)
+    u.start()
+    while not scanner._cont:
+        sleep(1)
     identified_finger = scanner._true_scan_number
     if identified_finger < 200 and identified_finger > 0:
         check = True

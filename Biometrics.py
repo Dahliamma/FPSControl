@@ -20,6 +20,7 @@ class FingerPrintScanner():
     """
 
     def __init__(self):
+        self._cont = None
         self._status = 0
         self._status_string = None
         self._led_state = [None] * 2
