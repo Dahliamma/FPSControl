@@ -76,6 +76,7 @@ def signin_update():
             print('a;lsdfha;lskdfjh')
             Textbox_update(str(scanner._status_string))
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
+            master.update_idletasks()
             scanner._status = 2
     scanner._cont = True
 
