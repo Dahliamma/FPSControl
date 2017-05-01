@@ -38,15 +38,8 @@ for i in range(50):
 
 xx = BooleanVar()
 xx.set(False)
-def newuser_protocol():
-    Namebox.insert(0,"Select Name...")      #Load first index as "Select Name..."
-    unregistered_users = cur_user._unregistered_users
-    for name in unregistered_users:     #Load up Namebox with unregistered users
-        Namebox.insert(END,name)
-    Namebox.select_set(0)   #Set selected value as top Namebox index: prevents mis-naming
-    #ans = tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
-    sleep(1)
-    lights.led_change('blink', 'blue')
+
+def newuser_update:
     enroll_thread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     enroll_thread.start()
     while enroll_thread.is_alive():
@@ -56,15 +49,27 @@ def newuser_protocol():
             lights.led_change(scanner._led_state[0], scanner._led_state[1])
             scanner._status = 2
     if scanner._enroll_check == True:
-        #LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
+        # LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
         index = Namebox.curselection()
         if index != 0:
             x = Namebox.get(ACTIVE)
             cur_user.user_register(index, scanner._finger_number)
-            Textbox_update("Welcome, "+ x +".\n You can now order your drink.")
+            Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
     else:
-        #LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
-        tkMessageBox.showerror("Registration Failed.","An error occurred during enrollment. Please try again.")
+        # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
+        tkMessageBox.showerror("Registration Failed.", "An error occurred during enrollment. Please try again.")
+
+def newuser_protocol():
+    Namebox.insert(0,"Select Name...")      #Load first index as "Select Name..."
+    unregistered_users = cur_user._unregistered_users
+    for name in unregistered_users:     #Load up Namebox with unregistered users
+        Namebox.insert(END,name)
+    Namebox.select_set(0)   #Set selected value as top Namebox index: prevents mis-naming
+    ans = tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
+    sleep(1)
+    #lights.led_change('blink', 'blue')
+    n = threading.Thread(name='enroll', target=newuser_update)
+    n.start
     
 #SIGN IN USER PROTOCOL 
 check = BooleanVar()  #Prototype recognize variable "check"
@@ -91,7 +96,7 @@ def signin_update():
         tkMessageBox.showinfo("Access Denied", "You don't have permission to use this coffee maker.")
 
 def signin_protocol():
-    #tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
+    tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     sleep(1)
     scanner._idthread = threading.Thread(name='identify', target = scanner.finger_identify)
     scanner._idthread.start()
@@ -170,6 +175,7 @@ string_test = "Welcome to the Dept. of BIOE  Rube Goldberg Coffee Maker.\nPlease
 Textbox = Tk.Text(LFrame, width = 30, height = 10, takefocus=0)
 Textbox.grid(row=2, column=0, padx=10, pady=2)
 Textbox.insert(0.0,string_test)
+
 ###
 # Registration Button in Left Frame
 ###
