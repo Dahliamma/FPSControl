@@ -1,5 +1,6 @@
 from Tkinter import *
 import Tkinter as Tk
+from multiprocessing import Process
 import tkMessageBox
 from Biometrics import *
 import threading
@@ -13,8 +14,8 @@ master = Tk.Tk() #Makes the UI window
 master.wm_title("UI Drink Selection") #TItle of UI window
 master.wm_attributes("-fullscreen", True)
 lights = LEDactivate(0, 3) #Creating the LED object as blue, blinking initially
-#led_thread = threading.Thread(name='LED_Control', target=lights.led_work) #Starting led_work in the background
-#led_thread.start()
+led_thread = threading.Thread(name='LED_Control', target=lights.led_work) #Starting led_work in the background
+led_thread.start()
 scanner = FingerPrintScanner()
 cur_user = User()
 
@@ -99,7 +100,7 @@ def signin_protocol():
     sleep(1)
     scanner._idthread = threading.Thread(name='identify', target = scanner.finger_identify)
     scanner._idthread.start()
-    u = threading.Thread(name='updater', target=signin_update)
+    u = Process(name='updater', target=signin_update)
     u.start()
 
 
