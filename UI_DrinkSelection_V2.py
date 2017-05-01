@@ -338,7 +338,7 @@ class User():
     def user_register(self, unregistered_number, FPSID):
         register_check = False
         self._ID = FPSID
-        self._working_row = int(self._unregistered_rows[unregistered_number])
+        self._working_row = self._unregistered_rows[unregistered_number]
         self._w_sheet.write(self._working_row, 6, self._ID)
         self._w_sheet.write(self._working_row, 5, 0)
         self.user_recall(self._ID)
@@ -567,7 +567,7 @@ def newuser_continue():
         Textbox_update('Please choose your name from the list to the right.')
         while index == 0:
             index = Namebox.curselection()
-        if index != 0:
+        if not index == 0:
             x = Namebox.get(ACTIVE)
             cur_user.user_register(index, scanner._finger_number)
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
