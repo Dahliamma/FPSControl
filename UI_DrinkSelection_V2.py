@@ -74,7 +74,6 @@ def signin_update():
         print('yasdyfoasdyf')
         if scanner._status == 1:
             print('a;lsdfha;lskdfjh')
-            pdb.set_trace()
             Textbox_update(str(scanner._status_string))
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
             scanner._status = 2
@@ -133,7 +132,6 @@ def brew_trigger(volume_value,strength_value):
             tkMessageBox.showerror("User Not Signed In","Looks like you still need to sign in.\nPlease select your user status and scan your finger.")
 
 #UPDATE TEXTBOX METHOD
-x = StringVar()
 def Textbox_update(x):
     Textbox.insert(0.0,x+"\n\n")
 
