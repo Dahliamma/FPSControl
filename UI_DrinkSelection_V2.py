@@ -47,7 +47,9 @@ def newuser_update():
             scanner._status = 2
     if scanner._enroll_check == True:
         # LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
-        index = Namebox.curselection()
+        index = 0
+        while index == 0:
+            index = Namebox.curselection()
         if index != 0:
             x = Namebox.get(ACTIVE)
             cur_user.user_register(index, scanner._finger_number)
@@ -81,7 +83,7 @@ def signin_update():
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
             scanner._status = 2
     identified_finger = scanner._true_scan_number
-    if identified_finger < 200 and identified_finger > 0:
+    if not identified_finger == 200:
         check = True
     else:
         check = False
@@ -116,6 +118,8 @@ def brew_trigger(volume_value,strength_value):
     else:
         y = "strong"
     ans = tkMessageBox.askokcancel("Order Accepted","Thank you for your selection!\nYou ordered " + str(volume_value) + " cups of " + str(y) + " coffee.\nReady to brew?",default="cancel")
+    if not cur_user._ID == None:
+        accept.set(True)
     if ans == True:
         if accept == True:
             #bean_count = LoadCell weight protocol
