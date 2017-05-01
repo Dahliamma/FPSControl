@@ -81,7 +81,7 @@ def signin_update():
     check.set(False)
     scanner._idthread.join()
     print(scanner._idthreadstatus)
-    while scanner._idthreadstatus:
+    while idthreadstatus:
         if scanner._status == 1:
             Textbox_update(str(scanner._status_string))
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
