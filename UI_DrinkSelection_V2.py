@@ -74,11 +74,9 @@ def newuser_protocol():
     n.start()
 
 #SIGN IN USER PROTOCOL 
-check = BooleanVar()  #Prototype recognize variable "check"
-check.set(False)    #Initialize check to "false", prevents automatic acceptance of user
-
 def signin_update():
-    pdb.set_trace()
+    check = BooleanVar()  # Prototype recognize variable "check"
+    check.set(False)
     while scanner._idthread.is_alive():
         if scanner._status == 1:
             Textbox_update(str(scanner._status_string))
