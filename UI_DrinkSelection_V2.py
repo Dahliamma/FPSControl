@@ -79,6 +79,7 @@ def signin_update():
     print('Entered signin_update')
     check = BooleanVar()  # Prototype recognize variable "check"
     check.set(False)
+    print(scanner._idthread.is_alive())
     while scanner._idthread.is_alive():
         if scanner._status == 1:
             Textbox_update(str(scanner._status_string))
