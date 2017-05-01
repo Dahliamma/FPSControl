@@ -45,12 +45,12 @@ def newuser_protocol():
         Namebox.insert(END,name)
     Namebox.select_set(0)   #Set selected value as top Namebox index: prevents mis-naming
     ans = tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
+    sleep(1)
     lights.led_change('blink', 'blue')
     enroll_thread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     enroll_thread.start()
     while enroll_thread.is_alive():
         if scanner._status == 1:
-            scanner._status = 2
             Textbox_update(scanner._status_string)
             lights.led_change(scanner._led_state[0], scanner._led_state[1])
             scanner._status = 2
@@ -70,6 +70,7 @@ check = BooleanVar()  #Prototype recognize variable "check"
 check.set(False)    #Initialize check to "false", prevents automatic acceptance of user
 def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
+    sleep(1)
     identify_thread = threading.Thread(name='identify', target = scanner.finger_identify)
     identify_thread.start()
     while identify_thread.is_alive():
