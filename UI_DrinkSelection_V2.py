@@ -52,6 +52,7 @@ def newuser_protocol():
     while enroll_thread.is_alive():
         if scanner._status == 1:
             Textbox_update(scanner._status_string)
+            pdb.set_trace()
             lights.led_change(scanner._led_state[0], scanner._led_state[1])
             scanner._status = 2
     if scanner._enroll_check == True:
