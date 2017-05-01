@@ -438,9 +438,7 @@ class LEDactivate():
 
     def led_change(self, new_status, new_color):
         #Resetting everything to be off before changing state/color
-        self.RED.ChangeDutyCycle(0)
-        self.GREEN.ChangeDutyCycle(0)
-        self.BLUE.ChangeDutyCycle(0)
+        self.state = 2
         #Setting new color and state values
         if new_color == 'red':
             self.color = 1
