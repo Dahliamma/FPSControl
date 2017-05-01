@@ -70,7 +70,7 @@ def newuser_protocol():
     #lights.led_change('blink', 'blue')
     scanner._enthread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     scanner._enthread.start()
-    n = threading.Thread(name='enroll', target=newuser_update)
+    n = Process(name='enroll', target=newuser_update)
     n.start()
     
 #SIGN IN USER PROTOCOL 
