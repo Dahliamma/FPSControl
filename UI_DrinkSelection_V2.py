@@ -299,10 +299,13 @@ class FingerPrintScanner():
         lights.led_change(state, color)
 
     def reset_state(self):
+        """
         while not self._status == 0:
             if self._status == 2:
                 self._status = 0
             sleep(0.01)
+            """
+        return
 
     def EStep0(self):
         already_used_check = None
