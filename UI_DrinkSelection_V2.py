@@ -135,6 +135,7 @@ def brew_trigger(volume_value,strength_value):
 #UPDATE TEXTBOX METHOD
 x = StringVar()
 def Textbox_update(x):
+    pdb.set_trace()
     Textbox.insert(0.0,x+"\n\n")
 
 ###
