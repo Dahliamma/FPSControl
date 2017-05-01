@@ -58,10 +58,10 @@ class FingerPrintScanner():
 
     def custom_print(self, printed_string, state, color):
         if self._status == 0:
-            self._status = 1
             self._status_string = printed_string
             self._led_state[0] = state
             self._led_state[1] = color
+            self._status = 1
 
     def reset_state(self):
         while not self._status == 0:
@@ -416,19 +416,19 @@ class LEDactivate():
                     self.BLUE.ChangeDutyCycle(0)
                     for i in range(100): #Ramping up intensity to 100
                         self.GREEN.ChangeDutyCycle(i)
-                        sleep(0.01)
+                        sleep(0.005)
                     for i in range(100): #Ramping down intensity to 0
                         self.GREEN.ChangeDutyCycle(100 - i)
-                        sleep(0.01)
+                        sleep(0.005)
                 elif self.color == 3: #BLUE
                     self.RED.ChangeDutyCycle(0)
                     self.GREEN.ChangeDutyCycle(0)
                     for i in range(100): #Ramping up intensity to 100
                         self.BLUE.ChangeDutyCycle(i)
-                        sleep(0.01)
+                        sleep(0.005)
                     for i in range(100): #Ramping down intensity to 0
                         self.BLUE.ChangeDutyCycle(100 - i)
-                        sleep(0.01)
+                        sleep(0.005)
             while self.state == 1: #Steady on
                 if self.color == 1:
                     self.GREEN.ChangeDutyCycle(0)
