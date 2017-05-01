@@ -282,6 +282,7 @@ class FingerPrintScanner():
         #print('Identified ID: ' + str(self._true_scan_number))
         if self._true_scan_number == 0:
             self._true_scan_number = 200
+        newuser_continue()
         return self._true_scan_number
 
 class User():
@@ -559,8 +560,7 @@ def newuser_protocol():
     #lights.led_change('blink', 'blue')
     scanner._enthread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     scanner._enthread.start()
-    while scanner._enthread.is_alive():
-        sleep(0.5)
+def newuser_continue():
     if scanner._enroll_check == True:
         # LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
         index = 0
