@@ -564,7 +564,7 @@ def newuser_continue():
     if scanner._enroll_check == True:
         # LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
         index = 0
-        tkMessageBox.showinfo("Choose your name.","Please choose your name from the list on the right.")
+        Textbox_update('Please choose your name from the list to the right.')
         while index == 0:
             index = Namebox.curselection()
         if index != 0:
