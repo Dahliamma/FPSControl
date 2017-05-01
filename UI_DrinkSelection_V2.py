@@ -44,7 +44,7 @@ def newuser_protocol():
     for name in unregistered_users:     #Load up Namebox with unregistered users
         Namebox.insert(END,name)
     Namebox.select_set(0)   #Set selected value as top Namebox index: prevents mis-naming
-    tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
+    ans = tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
     lights.led_change('blink', 'blue')
     enroll_thread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     enroll_thread.start()
