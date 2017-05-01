@@ -66,19 +66,14 @@ class FingerPrintScanner():
         self.fps.SetLED(False)
 
     def custom_print(self, printed_string, state, color):
-        pdb.set_trace()
-        Textbox_update(printed_string)
-        lights.led_change(state, color)
+        if self._status == 0:
+            Textbox_update(printed_string)
+            lights.led_change(state, color)
+            self._status = 1
 
     def reset_state(self):
-        """
-        while not self._status == 0:
-            if self._status == 2:
-                self._status = 0
-            sleep(0.01)
-            """
-        return
-
+        if self._status == 1:
+            self._status = 0
     def EStep0(self):
         already_used_check = None
         self.fps.SetLED(True)
