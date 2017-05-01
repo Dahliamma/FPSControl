@@ -79,6 +79,7 @@ def signin_update():
     print('Entered signin_update')
     check = BooleanVar()  # Prototype recognize variable "check"
     check.set(False)
+    scanner._idthread.join()
     print(scanner._idthreadstatus)
     while scanner._idthreadstatus:
         if scanner._status == 1:
