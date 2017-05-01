@@ -528,7 +528,7 @@ for i in range(50):
 xx = BooleanVar()
 xx.set(False)
 
-def newuser_update():
+"""def newuser_update():
     print('Entered newuser_update')
     while scanner._enthread.is_alive():
         if scanner._status == 1:
@@ -547,7 +547,7 @@ def newuser_update():
     else:
         # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
         tkMessageBox.showerror("Registration Failed.", "An error occurred during enrollment. Please try again.")
-
+"""
 def newuser_protocol():
     Namebox.insert(0,"Select Name...")      #Load first index as "Select Name..."
     unregistered_users = cur_user._unregistered_users
@@ -559,8 +559,19 @@ def newuser_protocol():
     #lights.led_change('blink', 'blue')
     scanner._enthread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     scanner._enthread.start()
-    n = Process(name='enroll', target=newuser_update)
-    n.start()
+    if scanner._enroll_check == True:
+        # LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
+        index = 0
+        tkMessageBox.showinfo("Choose your name.","Please choose your name from the list on the right.")
+        while index == 0:
+            index = Namebox.curselection()
+        if index != 0:
+            x = Namebox.get(ACTIVE)
+            cur_user.user_register(index, scanner._finger_number)
+            Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
+    else:
+        # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
+        tkMessageBox.showerror("Registration Failed.", "An error occurred during enrollment. Please try again.")
 
 #SIGN IN USER PROTOCOL
 """
