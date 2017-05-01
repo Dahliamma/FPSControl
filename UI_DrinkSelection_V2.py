@@ -40,12 +40,9 @@ xx = BooleanVar()
 xx.set(False)
 
 def newuser_update():
-    enroll_thread = threading.Thread(name='enroll', target=scanner.finger_enroll)
-    enroll_thread.start()
-    while enroll_thread.is_alive():
+    while scanner._enthread.is_alive():
         if scanner._status == 1:
             Textbox_update(scanner._status_string)
-            pdb.set_trace()
             lights.led_change(scanner._led_state[0], scanner._led_state[1])
             scanner._status = 2
     if scanner._enroll_check == True:
@@ -68,6 +65,8 @@ def newuser_protocol():
     ans = tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
     sleep(1)
     #lights.led_change('blink', 'blue')
+    scanner._enthread = threading.Thread(name='enroll', target=scanner.finger_enroll)
+    scanner._enthread.start()
     n = threading.Thread(name='enroll', target=newuser_update)
     n.start
     
@@ -77,9 +76,7 @@ check.set(False)    #Initialize check to "false", prevents automatic acceptance 
 
 def signin_update():
     while scanner._idthread.is_alive():
-        print('yasdyfoasdyf')
         if scanner._status == 1:
-            print('a;lsdfha;lskdfjh')
             Textbox_update(str(scanner._status_string))
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
             scanner._status = 2
@@ -99,9 +96,7 @@ def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     sleep(1)
     scanner._idthread = threading.Thread(name='identify', target = scanner.finger_identify)
-    scanner._idthread.start()
-    scanner._cont = False
-    u = threading.Thread(name='updater', target=signin_update)
+    scanner._idthread.start()    u = threading.Thread(name='updater', target=signin_update)
     u.start()
 
 
