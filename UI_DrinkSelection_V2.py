@@ -80,7 +80,7 @@ def signin_update():
     check = BooleanVar()  # Prototype recognize variable "check"
     check.set(False)
     print(scanner._idthread.is_alive())
-    while scanner._idthread.is_alive():
+    while scanner._idthreadstatus:
         if scanner._status == 1:
             Textbox_update(str(scanner._status_string))
             lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
@@ -100,7 +100,7 @@ def signin_update():
 def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     sleep(1)
-    scanner._idthread = threading.Thread(name='identify', target=scanner.finger_identify)
+    scanner._idthread = Process(name='identify', target=scanner.finger_identify)
     scanner._idthread.start()
     u = Process(name='updater', target=signin_update)
     pdb.set_trace()
