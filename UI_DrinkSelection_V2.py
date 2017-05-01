@@ -566,7 +566,8 @@ def newuser_continue():
         index = 0
         Textbox_update('Please choose your name from the list to the right.')
         while index == 0:
-            index = Namebox.curselection()
+            tuple = Namebox.curselection()
+            index = tuple[0]
         if not index == 0:
             x = Namebox.get(ACTIVE)
             pdb.set_trace()
