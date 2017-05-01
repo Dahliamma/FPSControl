@@ -403,6 +403,8 @@ class LEDactivate():
         while True: #Infinite loop
             while self.state == 0: #Blinking
                 if self.color == 1: #RED
+                    self.BLUE.ChangeDutyCycle(0)
+                    self.GREEN.ChangeDutyCycle(0)
                     for i in range (100): #Ramping up intensity to 100
                         self.RED.ChangeDutyCycle(i)
                         sleep(0.005)
@@ -410,6 +412,8 @@ class LEDactivate():
                         self.RED.ChangeDutyCycle(100 - i)
                         sleep(0.005)
                 elif self.color == 2: #GREEN
+                    self.RED.ChangeDutyCycle(0)
+                    self.BLUE.ChangeDutyCycle(0)
                     for i in range(100): #Ramping up intensity to 100
                         self.GREEN.ChangeDutyCycle(i)
                         sleep(0.01)
@@ -417,6 +421,8 @@ class LEDactivate():
                         self.GREEN.ChangeDutyCycle(100 - i)
                         sleep(0.01)
                 elif self.color == 3: #BLUE
+                    self.RED.ChangeDutyCycle(0)
+                    self.GREEN.ChangeDutyCycle(0)
                     for i in range(100): #Ramping up intensity to 100
                         self.BLUE.ChangeDutyCycle(i)
                         sleep(0.01)
@@ -425,15 +431,24 @@ class LEDactivate():
                         sleep(0.01)
             while self.state == 1: #Steady on
                 if self.color == 1:
+                    self.GREEN.ChangeDutyCycle(0)
+                    self.BLUE.ChangeDutyCycle(0)
                     self.RED.ChangeDutyCycle(100) #Setting red to 100
                     sleep(1)
                 elif self.color == 2:
+                    self.RED.ChangeDutyCycle(0)
+                    self.BLUE.ChangeDutyCycle(0)
                     self.GREEN.ChangeDutyCycle(100) #Setting green to 100
                     sleep(1)
                 elif self.color == 3:
+                    self.RED.ChangeDutyCycle(0)
+                    self.GREEN.ChangeDutyCycle(0)
                     self.BLUE.ChangeDutyCycle(100) #Setting blue to 100
                     sleep(1)
             while self.state == 2: #Steady off
+                self.RED.ChangeDutyCycle(0)
+                self.BLUE.ChangeDutyCycle(0)
+                self.GREEN.ChangeDutyCycle(0)
                 sleep(1) #Sleeping in off state
 
     def led_change(self, new_status, new_color):
