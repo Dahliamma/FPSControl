@@ -47,6 +47,7 @@ def newuser_protocol():
     tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
     lights.led_change('blink', 'blue')
     enroll_thread = threading.Thread(name='enroll', target=scanner.finger_enroll)
+    enroll_thread.start()
     while enroll_thread.is_alive():
         if scanner._status == 1:
             scanner._status = 2
@@ -70,6 +71,7 @@ check.set(False)    #Initialize check to "false", prevents automatic acceptance 
 def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     identify_thread = threading.Thread(name='identify', target = scanner.finger_identify)
+    identify_thread.start()
     while identify_thread.is_alive():
         if scanner._status == 1:
             scanner._status = 2
