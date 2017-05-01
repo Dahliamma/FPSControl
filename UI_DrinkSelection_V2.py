@@ -66,6 +66,7 @@ class FingerPrintScanner():
         self.fps.SetLED(False)
 
     def custom_print(self, printed_string, state, color):
+        pdb.set_trace()
         Textbox_update(printed_string)
         lights.led_change(state, color)
 
@@ -594,7 +595,6 @@ def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     sleep(1)
     #scanner.finger_identify()
-
     scanner._idthread = Process(name='identify', target=scanner.finger_identify)
     scanner._idthread.start()
     """
