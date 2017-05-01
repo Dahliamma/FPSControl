@@ -28,6 +28,8 @@ if __name__ == "__main__":
     s.start()
     i = 1
     while True:
+        print('t: ' + str(t.is_alive()))
+        print('s: ' + str(s.is_alive()))
         sleep(5)
         if i < 3:
             blue._state = 1

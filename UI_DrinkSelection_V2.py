@@ -1,10 +1,9 @@
 from Tkinter import *
 import Tkinter as Tk
 import tkMessageBox
+from Biometrics import *
+import threading
 import pdb
-#import fingerprintscanner as fingerprintscanner
-#import LEDactivate as LED
-
 
 
 ###
@@ -13,6 +12,12 @@ import pdb
 master = Tk.Tk() #Makes the UI window
 master.wm_title("UI Drink Selection") #TItle of UI window
 master.wm_attributes("-fullscreen", True)
+lights = LEDactivate(0, 3) #Creating the LED object as blue, blinking initially
+led_thread = threading.Thread(name='LED_Control', target=LEDactivate.led_work) #Starting led_work in the background
+led_thread.start()
+scanner = FingerPrintScanner()
+cur_user = User()
+
 #master.config(background = "#FFFFFF") #Background UI color
 
 ###
@@ -24,26 +29,36 @@ master.wm_attributes("-fullscreen", True)
 
 ###
 # DEBUG SHIT TO GET RID OF
+"""
 unregistered_users = [None]*50
 for i in range(50):
     unregistered_users[i] = i
 ###
+"""
+
 xx = BooleanVar()
 xx.set(False)
 def newuser_protocol():
     Namebox.insert(0,"Select Name...")      #Load first index as "Select Name..."
+    unregistered_users = cur_user._unregistered_users
     for name in unregistered_users:     #Load up Namebox with unregistered users
         Namebox.insert(END,name)
     Namebox.select_set(0)   #Set selected value as top Namebox index: prevents mis-naming
     tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
-    #LED.Blink(4,5,100,100,100)   #Blink blue LED
-    #xx = fingerprintscanner.finger_enroll()    #Call enrollment function
-    if xx == True:
+    lights.led_change('blink', 'blue')
+    enroll_thread = threading.Thread(name='enroll', target=scanner.finger_enroll)
+    while enroll_thread.is_alive():
+        if scanner._status == 1:
+            scanner._status = 2
+            Textbox_update(scanner._status_string)
+            lights.led_change(scanner._led_state[0], scanner._led_state[1])
+            scanner._status = 2
+    if scanner._enroll_check == True:
         #LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
         index = Namebox.curselection()
         if index != 0:
             x = Namebox.get(ACTIVE)
-            currentuser.user_register(index)
+            cur_user.user_register(index, scanner._finger_number)
             Textbox_update("Welcome, "+ x +".\n You can now order your drink.")
     else:
         #LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
@@ -54,10 +69,21 @@ check = BooleanVar()  #Prototype recognize variable "check"
 check.set(False)    #Initialize check to "false", prevents automatic acceptance of user
 def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
-    #check = fingerprintscanner.recognize()
+    identify_thread = threading.Thread(name='identify', target = scanner.finger_identify)
+    while identify_thread.is_alive():
+        if scanner._status == 1:
+            scanner._status = 2
+            Textbox_update(scanner._status_string)
+            lights.led_change(scanner._led_state[0], scanner._led_state[1])
+            scanner._status = 2
+    identified_finger = scanner._true_scan_number
+    if identified_finger < 200 and identified_finger > 0:
+        check = True
+    else:
+        check = False
     if check == True:
         accept = True
-        #Retrieve user name for message prompting
+        cur_user.user_recall(identified_finger)
     else:
         accept = False
         tkMessageBox.showinfo("Access Denied","You don't have permission to use this coffee maker.")
@@ -82,8 +108,13 @@ def brew_trigger(volume_value,strength_value):
             #bean_count = LoadCell weight protocol
                 if bean_count == 0:
                     tkMessageBox.showerror("Grinder Needs More Beans","There are too few beans to fill your order.\n Please add more before proceeding.")
-            #user.strengthpreference = strength_value
-            #user.volumepreference = volume_value
+            sleep(5)
+            ans = tkMessageBox.askokcancel("Filter Cleaning", "Did you clean the filter?\nPress OK if you have, Cancel if you haven't", default="cancel")
+            if ans == False:
+                offense = True
+            else:
+                offense = False
+            cur_user.user_update(offense, strength_value, volume_value)
         else:
             tkMessageBox.showerror("User Not Signed In","Looks like you still need to sign in.\nPlease select your user status and scan your finger.")
 
@@ -96,19 +127,19 @@ def Textbox_update(x):
 # Frame Prototypes for Widget Organization
 ###
 #Left Frame
-LFrame = Tk.Frame(master, width=250, height = 800)
+LFrame = Tk.Frame(master, width=200, height = 800)
 LFrame.grid(row=0, column=0, padx=10, pady=2)
 #Middle frame
-MFrame = Tk.Frame(master,width=250,height=800)
+MFrame = Tk.Frame(master,width=200,height=800)
 MFrame.grid(row=0,column=1,padx=10,pady=2)
 #Right Frame
-RFrame = Tk.Frame(master, width=250, height = 800)
+RFrame = Tk.Frame(master, width=200, height = 800)
 RFrame.grid(row=0, column=2, padx=10, pady=2)
 #Subframe for Account Buttons
-Accounts_btnFrame = Tk.Frame(LFrame, width=250, height = 200)
+Accounts_btnFrame = Tk.Frame(LFrame, width=200, height = 200)
 Accounts_btnFrame.grid(row=1, column=0, padx=10, pady=2)
 #Subframe for Selection Buttons
-Selection_btnFrame = Tk.Frame(MFrame,width=250,height=200)
+Selection_btnFrame = Tk.Frame(MFrame,width=200,height=200)
 Selection_btnFrame.grid(row=0,column=0,columnspan=2,ipadx=2)
 
 #Look for Coffee Cup image and load into label
