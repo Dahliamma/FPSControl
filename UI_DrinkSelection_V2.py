@@ -85,7 +85,7 @@ def signin_protocol():
     scanner._idthread = threading.Thread(name='identify', target = scanner.finger_identify)
     scanner._idthread.start()
     scanner._cont = False
-    u = threading.Thread(name='updater', target='signin_update')
+    u = threading.Thread(name='updater', target=signin_update)
     u.start()
     while not scanner._cont:
         sleep(1)
