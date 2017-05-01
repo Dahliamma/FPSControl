@@ -100,10 +100,10 @@ def signin_update():
 def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     sleep(1)
-    scanner._idthread = Process(name='identify', target = scanner.finger_identify)
-    scanner._idthread.start()
     u = Process(name='updater', target=signin_update)
     u.start()
+    scanner._idthread = threading.Thread(name='identify', target=scanner.finger_identify)
+    scanner._idthread.start()
 
 
 #TRIGGER BREWING PROTOCOL
