@@ -134,7 +134,7 @@ def brew_trigger(volume_value,strength_value):
 #UPDATE TEXTBOX METHOD
 x = StringVar()
 def Textbox_update(x):
-    Textbox.insert(0.0,x+"\n\n")
+    Textbox.insert(0.0,x)
 
 ###
 # Frame Prototypes for Widget Organization
