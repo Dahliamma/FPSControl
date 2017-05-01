@@ -172,7 +172,7 @@ string_test = "Welcome to the Dept. of BIOE  Rube Goldberg Coffee Maker.\nPlease
 Textbox = Tk.Text(LFrame, width = 30, height = 10, takefocus=0)
 Textbox.grid(row=2, column=0, padx=10, pady=2)
 Textbox.insert(0.0,string_test)
-
+pdb.set_trace()
 ###
 # Registration Button in Left Frame
 ###
