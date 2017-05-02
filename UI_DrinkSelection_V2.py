@@ -573,7 +573,6 @@ def newuser_continue():
             cur_user.user_register(index, scanner._finger_number)
             x = cur_user._unregistered_users[index-1]
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
-            pdb.set_trace()
     else:
         # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
         tkMessageBox.showerror("Registration Failed.", "An error occurred during enrollment. Please try again.")
@@ -612,7 +611,6 @@ def signin_continue():
     if check == True:
         accept = True
         cur_user.user_recall(identified_finger)
-        pdb.set_trace()
         Textbox_update("Welcome, " +  cur_user._first_name + ' ' + cur_user._last_name + ".\n You can now order your drink.")
     else:
         accept = False
@@ -633,10 +631,8 @@ def brew_trigger(volume_value,strength_value):
     else:
         y = "strong"
     ans = tkMessageBox.askokcancel("Order Accepted","Thank you for your selection!\nYou ordered " + str(volume_value) + " cups of " + str(y) + " coffee.\nReady to brew?",default="cancel")
-    pdb.set_trace()
     if not cur_user._ID == None:
         accept = True
-    pdb.set_trace()
     if ans == True:
         if accept == True:
             #bean_count = LoadCell weight protocol
