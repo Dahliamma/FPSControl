@@ -610,6 +610,7 @@ def signin_continue():
     if check == True:
         accept = True
         cur_user.user_recall(identified_finger)
+        pdb.set_trace()
         Textbox_update("Welcome, " +  cur_user._first_name + ' ' + cur_user._last_name + ".\n You can now order your drink.")
     else:
         accept = False
