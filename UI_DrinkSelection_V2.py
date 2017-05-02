@@ -569,8 +569,8 @@ def newuser_continue():
             tuple = Namebox.curselection()
             index = tuple[0]
         if not index == 0:
+            cur_user.user_register(index - 1, scanner._finger_number)
             x = cur_user._first_name + ' ' + cur_user._last_name
-            cur_user.user_register(index-1, scanner._finger_number)
             pdb.set_trace()
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
     else:
