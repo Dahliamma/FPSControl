@@ -613,8 +613,7 @@ def signin_continue():
         accept = True
         cur_user.user_recall(identified_finger)
         pdb.set_trace()
-        y = cur_user._first_name + ' ' + cur_user._last_name
-        Textbox_update("Welcome, " +  + ".\n You can now order your drink.")
+        Textbox_update("Welcome, " +  cur_user._first_name + ' ' + cur_user._last_name + ".\n You can now order your drink.")
     else:
         accept = False
         tkMessageBox.showinfo("Access Denied", "You don't have permission to use this coffee maker.")
