@@ -1,7 +1,4 @@
-"""
-Fingerprint Class
-
-"""
+import threading
 import FPS as FPS
 from collections import Counter
 from time import sleep
@@ -9,7 +6,6 @@ import xlwt
 import xlrd
 from xlutils.copy import copy
 import RPi.GPIO as GPIO
-
 
 class FingerPrintScanner():
     """
@@ -19,11 +15,14 @@ class FingerPrintScanner():
     Args:
     """
 
-    def __init__(self):
+    def __init__(self, debug):
         self._cont = None
         self._idthread = None
         self._enthread = None
-        self._status = 0
+        if debug:
+            self._status = 2
+        else:
+            self._status = 0
         self._status_string = None
         self._led_state = [None] * 2
         print('Starting initialization')
@@ -60,17 +59,16 @@ class FingerPrintScanner():
         self.fps.SetLED(False)
 
     def custom_print(self, printed_string, state, color):
-        if self._status == 0:
-            self._status_string = printed_string
-            self._led_state[0] = state
-            self._led_state[1] = color
+        if self._status == 2:
+            print(printed_string)
+        elif self._status == 0:
+            Textbox_update(printed_string)
+            lights.led_change(state, color)
             self._status = 1
 
     def reset_state(self):
-        while not self._status == 0:
-            if self._status == 2:
-                self._status = 0
-            sleep(0.01)
+        if self._status == 1:
+            self._status = 0
 
     def EStep0(self):
         already_used_check = None
@@ -232,6 +230,7 @@ class FingerPrintScanner():
             self.reset_state()
         else:
             self.custom_print('Enrollment Succeeded', 'steady', 'green')
+
             self.reset_state()
         return self._enroll_check
 
@@ -280,7 +279,7 @@ class FingerPrintScanner():
         #print('Identified ID: ' + str(self._true_scan_number))
         if self._true_scan_number == 0:
             self._true_scan_number = 200
-        return self._true_scan_number
+        return self._true_scan_number[0][0]
 
 class User():
     """
@@ -306,14 +305,14 @@ class User():
     def user_recall(self, FPSID):
         self._ID = FPSID
         recall_check = False
-        print(str(self._r_sheet.nrows))
+        #print(str(self._r_sheet.nrows))
         counter = 1
         while counter < self._r_sheet.nrows:
-            print('Value: ' + str(self._r_sheet.cell(counter, 6).value))
-            print('Type: ' + str(self._r_sheet.cell_type(counter, 6)))
+            #print('Value: ' + str(self._r_sheet.cell(counter, 6).value))
+            #print('Type: ' + str(self._r_sheet.cell_type(counter, 6)))
             if int(self._r_sheet.cell_type(counter, 6)) == 2 and int(self._r_sheet.cell(counter, 6).value) == self._ID:
                 self._working_row = counter
-                print('Working Row: ' + str(self._working_row))
+                #print('Working Row: ' + str(self._working_row))
                 self._first_name = str(self._r_sheet.cell(counter, 0).value)
                 self._last_name = str(self._r_sheet.cell(counter, 1).value)
                 self._email = str(self._r_sheet.cell(counter, 2).value)
@@ -335,11 +334,11 @@ class User():
     def user_register(self, unregistered_number, FPSID):
         register_check = False
         self._ID = FPSID
-        self._working_row = int(self._unregistered_rows[unregistered_number])
+        self._working_row = self._unregistered_rows[unregistered_number-1]
         self._w_sheet.write(self._working_row, 6, self._ID)
         self._w_sheet.write(self._working_row, 5, 0)
-        self.user_recall(self._ID)
         self._wb.save('UserData.xls')
+        self.user_recall(self._ID)
         return register_check
 
     def database_update(self):
@@ -471,24 +470,15 @@ class LEDactivate():
         elif new_status == 'off':
             self.state = 2
 
-"""
 if __name__ == "__main__":
-    from FingerPrintScanner import FingerPrintScanner
-    test = FingerPrintScanner()
-    print('1. Enroll. | 2. Identify. | 3. Enroll and Identify. | 4. DeleteAll.')
-    testloop = input('Choice: ')
-    if testloop == 4:
-        print('Are you sure? (0=N | 1=Y)')
-        del_check = input()
-        if del_check == 1:
-            del_check_check = False
-            test.fps.Open()
-            while not del_check_check:
-                print('Deleteing...')
-                del_check_check = test.fps.DeleteAll()
-    sleep(0.5)
-    if testloop == 1 or testloop == 3:
-        test.finger_enroll()
-    if testloop == 2 or testloop == 3:
-        test.finger_identify()
-"""
+    testing = True
+    while testing
+        print('Choose a test: \n 1. Register Fingerprint \n 2. Identify Fingerprint \n 3. Recall User \n 4. Register ID to User \n 5. Light Tests ')
+        testval = input('Choice:')
+        if testval == 1:
+            FP = FingerPrintScanner(True)
+            register_test = FP.finger_enroll()
+        elif testval == 2:
+            FP = FingerPrintScanner(True)
+            identify_test = FP.finger_identify()
+            print('Identified ID: ' + str(identify_test))

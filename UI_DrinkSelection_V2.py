@@ -1,6 +1,5 @@
 from Tkinter import *
 import Tkinter as Tk
-from multiprocessing import Process
 import tkMessageBox
 import threading
 import pdb
@@ -631,7 +630,7 @@ def brew_trigger(volume_value,strength_value):
     else:
         y = "strong"
     ans = tkMessageBox.askokcancel("Order Accepted","Thank you for your selection!\nYou ordered " + str(volume_value) + " cups of " + str(y) + " coffee.\nReady to brew?",default="cancel")
-    if not cur_user._ID == None:
+    if not cur_user._ID == None and cur_user._status < 3:
         accept = True
     if ans == True:
         if accept == True:
