@@ -555,8 +555,7 @@ def newuser_protocol():
     for name in unregistered_users:     #Load up Namebox with unregistered users
         Namebox.insert(END,name)
     Namebox.select_set(0)   #Set selected value as top Namebox index: prevents mis-naming
-    ans = tkMessageBox.showinfo("New User","Welcome!\nPlease follow these steps to enroll:\n\n1. Select your name from the list.\n2. Place your finger on the fingerprint scanner and follow the prompts.")
-    sleep(1)
+    ans = tkMessageBox.showinfo("New User","Welcome!\nFollow the prompts in the message box to register your fingerprint.")
     #lights.led_change('blink', 'blue')
     scanner._enthread = threading.Thread(name='enroll', target=scanner.finger_enroll)
     scanner._enthread.start()
@@ -577,25 +576,8 @@ def newuser_continue():
         tkMessageBox.showerror("Registration Failed.", "An error occurred during enrollment. Please try again.")
 
 #SIGN IN USER PROTOCOL
-"""
-def signin_update():
-    print('Entered signin_update')
-    check = False
-    identified_finger = scanner._true_scan_number
-    if not identified_finger == 200:
-        check = True
-    else:
-        check = False
-    if check == True:
-        accept = True
-        cur_user.user_recall(identified_finger)
-    else:
-        accept = False
-        tkMessageBox.showinfo("Access Denied", "You don't have permission to use this coffee maker.")
-"""
 def signin_protocol():
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
-    sleep(1)
     #scanner.finger_identify()
     scanner._idthread = threading.Thread(name='identify', target=scanner.finger_identify)
     scanner._idthread.start()
@@ -610,7 +592,7 @@ def signin_continue():
     if check == True:
         accept = True
         cur_user.user_recall(identified_finger)
-        pdb.set_trace()
+        sleep(1)
         Textbox_update("Welcome, " +  cur_user._first_name + ' ' + cur_user._last_name + ".\n You can now order your drink.")
     else:
         accept = False
