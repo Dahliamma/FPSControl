@@ -341,8 +341,8 @@ class User():
         self._working_row = self._unregistered_rows[unregistered_number-1]
         self._w_sheet.write(self._working_row, 6, self._ID)
         self._w_sheet.write(self._working_row, 5, 0)
-        self.user_recall(self._ID)
         self._wb.save('UserData.xls')
+        self.user_recall(self._ID)
         return register_check
 
     def database_update(self):
