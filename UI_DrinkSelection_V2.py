@@ -530,9 +530,10 @@ def newuser_continue():
             tuple = Namebox.curselection()
             index = tuple[0]
             if not index == 0:
-                name_check = tkMessageBox.askyesno('Confirm Registration.', 'You selected ' + cur_user._unregistered_users[index] + ', is this really you?')
+                name_check = tkMessageBox.askyesno('Confirm Registration.', 'You selected ' + cur_user._unregistered_users[index-1] + ', is this really you?')
                 if not name_check:
                     index = 0
+                Namebox.select_set(0)
         if not index == 0:
             cur_user.user_register(index, scanner._finger_number)
             x = cur_user._unregistered_users[index-1]
