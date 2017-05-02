@@ -616,6 +616,7 @@ def signin_protocol():
 #TRIGGER BREWING PROTOCOL
 def brew_trigger(volume_value,strength_value):
     accept = False  # Initialize accept to "false", prevents automatic access to
+    bean_count = 1
     # vol is an object of type IntVar
     # stren is an object of type IntVar
     volume_value = volume_value.get()
