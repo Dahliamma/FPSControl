@@ -283,6 +283,7 @@ class FingerPrintScanner():
         #print('Identified ID: ' + str(self._true_scan_number))
         if self._true_scan_number == 0:
             self._true_scan_number = 200
+        signin_continue()
         return self._true_scan_number
 
 class User():
@@ -581,14 +582,7 @@ def newuser_continue():
 """
 def signin_update():
     print('Entered signin_update')
-    check = BooleanVar()  # Prototype recognize variable "check"
-    check.set(False)
-    print(idthreadstatus)
-    while idthreadstatus:
-        if scanner._status == 1:
-            Textbox_update(str(scanner._status_string))
-            lights.led_change(str(scanner._led_state[0]), str(scanner._led_state[1]))
-            scanner._status = 2
+    check = False
     identified_finger = scanner._true_scan_number
     if not identified_finger == 200:
         check = True
@@ -607,11 +601,20 @@ def signin_protocol():
     #scanner.finger_identify()
     scanner._idthread = threading.Thread(name='identify', target=scanner.finger_identify)
     scanner._idthread.start()
-    """
-    u = Process(name='updater', target=signin_update)
-    pdb.set_trace()
-    u.start()
-    """
+
+def signin_continue():
+    check = False
+    identified_finger = scanner._true_scan_number
+    if not identified_finger == 200:
+        check = True
+    else:
+        check = False
+    if check == True:
+        accept = True
+        cur_user.user_recall(identified_finger)
+    else:
+        accept = False
+        tkMessageBox.showinfo("Access Denied", "You don't have permission to use this coffee maker.")
 
 #TRIGGER BREWING PROTOCOL
 def brew_trigger(volume_value,strength_value):
