@@ -529,6 +529,7 @@ def newuser_continue():
         while index == 0:
             tuple = Namebox.curselection()
             index = tuple[0]
+            name_check = tkMessageBox.askokcancel('Confirm Registration.', 'You selected ', cur_user._unregistered_users[index], ', is this really you?', 'Yes', 'No')
         if not index == 0:
             cur_user.user_register(index, scanner._finger_number)
             x = cur_user._unregistered_users[index-1]
