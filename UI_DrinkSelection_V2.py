@@ -254,6 +254,7 @@ class FingerPrintScanner():
         self.custom_print('Keep finger placed on scanner.', 'blink', 'green')
         self.reset_state()
         self.fps.Open()
+        self._finger_scan_number = [None] * 10
         for i in range(10):
             counter = 0
             while counter <= 50 and not self._idchk:
@@ -474,28 +475,6 @@ class LEDactivate():
         elif new_status == 'off':
             self.state = 2
 
-"""
-if __name__ == "__main__":
-    from FingerPrintScanner import FingerPrintScanner
-    test = FingerPrintScanner()
-    print('1. Enroll. | 2. Identify. | 3. Enroll and Identify. | 4. DeleteAll.')
-    testloop = input('Choice: ')
-    if testloop == 4:
-        print('Are you sure? (0=N | 1=Y)')
-        del_check = input()
-        if del_check == 1:
-            del_check_check = False
-            test.fps.Open()
-            while not del_check_check:
-                print('Deleteing...')
-                del_check_check = test.fps.DeleteAll()
-    sleep(0.5)
-    if testloop == 1 or testloop == 3:
-        test.finger_enroll()
-    if testloop == 2 or testloop == 3:
-        test.finger_identify()
-"""
-
 ###
 # Initialize the UI Window/Master Object
 ###
@@ -529,26 +508,7 @@ for i in range(50):
 xx = BooleanVar()
 xx.set(False)
 
-"""def newuser_update():
-    print('Entered newuser_update')
-    while scanner._enthread.is_alive():
-        if scanner._status == 1:
-            Textbox_update(scanner._status_string)
-            lights.led_change(scanner._led_state[0], scanner._led_state[1])
-            scanner._status = 2
-    if scanner._enroll_check == True:
-        # LED.Solid(2,3,100,100,100)   #Solid green LED for 3 sec
-        index = 0
-        while index == 0:
-            index = Namebox.curselection()
-        if index != 0:
-            x = Namebox.get(ACTIVE)
-            cur_user.user_register(index, scanner._finger_number)
-            Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
-    else:
-        # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
-        tkMessageBox.showerror("Registration Failed.", "An error occurred during enrollment. Please try again.")
-"""
+
 def newuser_protocol():
     Namebox.insert(0,"Select Name...")      #Load first index as "Select Name..."
     unregistered_users = cur_user._unregistered_users
@@ -593,6 +553,8 @@ def signin_continue():
         accept = True
         cur_user.user_recall(identified_finger)
         sleep(1)
+        volume_value.set(cur_user._volume)
+        strength_value.set(cur_user._strength)
         Textbox_update("Welcome, " +  cur_user._first_name + ' ' + cur_user._last_name + ".\n You can now order your drink.")
     else:
         accept = False
