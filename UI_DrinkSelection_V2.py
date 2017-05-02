@@ -631,6 +631,7 @@ def brew_trigger(volume_value,strength_value):
     pdb.set_trace()
     if not cur_user._ID == None:
         accept.set(True)
+    pdb.set_trace()
     if ans == True:
         if accept == True:
             #bean_count = LoadCell weight protocol
