@@ -338,7 +338,7 @@ class User():
     def user_register(self, unregistered_number, FPSID):
         register_check = False
         self._ID = FPSID
-        self._working_row = self._unregistered_rows[unregistered_number]
+        self._working_row = self._unregistered_rows[unregistered_number-1]
         self._w_sheet.write(self._working_row, 6, self._ID)
         self._w_sheet.write(self._working_row, 5, 0)
         self.user_recall(self._ID)
@@ -569,7 +569,8 @@ def newuser_continue():
             tuple = Namebox.curselection()
             index = tuple[0]
         if not index == 0:
-            cur_user.user_register(index - 2, scanner._finger_number)
+            cur_user.user_register(index, scanner._finger_number)
+            pdb.set_trace()
             x = cur_user._first_name + ' ' + cur_user._last_name
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
     else:
