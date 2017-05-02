@@ -597,7 +597,7 @@ def brew_trigger(volume_value,strength_value):
                 offense = False
             cur_user.user_update(offense, strength_value, volume_value)
         elif not accept and cur_user._status > 2:
-            tkMessageBox.showerror('You are banned.', 'You have been banned from using this coffee machine \n due to not cleaning the filter 3 times.')
+            tkMessageBox.showerror('You are banned.', 'You have been banned from using this coffee machine due to not cleaning the filter 3 times.')
         else:
             tkMessageBox.showerror("User Not Signed In","Looks like you still need to sign in.\nPlease select your user status and scan your finger.")
 
