@@ -614,9 +614,8 @@ def signin_protocol():
     """
 
 #TRIGGER BREWING PROTOCOL
-accept = BooleanVar()   #prototype acceptance variable
-accept.set(False)       #Initialize accept to "false", prevents automatic access to 
 def brew_trigger(volume_value,strength_value):
+    accept = False  # Initialize accept to "false", prevents automatic access to
     # vol is an object of type IntVar
     # stren is an object of type IntVar
     volume_value = volume_value.get()
@@ -630,7 +629,7 @@ def brew_trigger(volume_value,strength_value):
     ans = tkMessageBox.askokcancel("Order Accepted","Thank you for your selection!\nYou ordered " + str(volume_value) + " cups of " + str(y) + " coffee.\nReady to brew?",default="cancel")
     pdb.set_trace()
     if not cur_user._ID == None:
-        accept.set(True)
+        accept = True
     pdb.set_trace()
     if ans == True:
         if accept == True:
