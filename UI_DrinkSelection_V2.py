@@ -338,7 +338,7 @@ class User():
     def user_register(self, unregistered_number, FPSID):
         register_check = False
         self._ID = FPSID
-        self._working_row = self._unregistered_rows[unregistered_number]
+        self._working_row = self._unregistered_rows[unregistered_number-1]
         self._w_sheet.write(self._working_row, 6, self._ID)
         self._w_sheet.write(self._working_row, 5, 0)
         self.user_recall(self._ID)
