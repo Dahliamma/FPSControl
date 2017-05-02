@@ -570,8 +570,8 @@ def newuser_continue():
             index = tuple[0]
         if not index == 0:
             cur_user.user_register(index - 1, scanner._finger_number)
-            x = cur_user._first_name + ' ' + cur_user._last_name
             pdb.set_trace()
+            x = cur_user._first_name + ' ' + cur_user._last_name
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
     else:
         # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
