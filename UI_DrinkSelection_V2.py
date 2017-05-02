@@ -569,11 +569,10 @@ def newuser_continue():
             tuple = Namebox.curselection()
             index = tuple[0]
         if not index == 0:
-            pdb.set_trace()
             cur_user.user_register(index, scanner._finger_number)
-            pdb.set_trace()
             x = cur_user._unregistered_users[index-1]
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
+            pdb.set_trace()
     else:
         # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
         tkMessageBox.showerror("Registration Failed.", "An error occurred during enrollment. Please try again.")
