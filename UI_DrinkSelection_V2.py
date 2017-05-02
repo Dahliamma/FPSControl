@@ -343,6 +343,7 @@ class User():
         self._w_sheet.write(self._working_row, 6, self._ID)
         self._w_sheet.write(self._working_row, 5, 0)
         self._wb.save('UserData.xls')
+        sleep(2)
         self.user_recall(self._ID)
         return register_check
 
