@@ -508,7 +508,9 @@ xx.set(False)
 
 
 def newuser_protocol():
+    global cur_user
     cur_user = User()
+    global scanner
     scanner = FingerPrintScanner()
     Namebox.insert(0,"Select Name...")      #Load first index as "Select Name..."
     unregistered_users = cur_user._unregistered_users
@@ -537,7 +539,9 @@ def newuser_continue():
 
 #SIGN IN USER PROTOCOL
 def signin_protocol():
+    global cur_user
     cur_user = User()
+    global scanner
     scanner = FingerPrintScanner()
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     #scanner.finger_identify()
