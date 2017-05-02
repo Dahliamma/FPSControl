@@ -569,7 +569,7 @@ def newuser_continue():
             tuple = Namebox.curselection()
             index = tuple[0]
         if not index == 0:
-            x = Namebox.get(ACTIVE)
+            x = cur_user._first_name + ' ' + cur_user._last_name
             pdb.set_trace()
             cur_user.user_register(index-1, scanner._finger_number)
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
@@ -628,6 +628,7 @@ def brew_trigger(volume_value,strength_value):
     else:
         y = "strong"
     ans = tkMessageBox.askokcancel("Order Accepted","Thank you for your selection!\nYou ordered " + str(volume_value) + " cups of " + str(y) + " coffee.\nReady to brew?",default="cancel")
+    pdb.set_trace()
     if not cur_user._ID == None:
         accept.set(True)
     if ans == True:
