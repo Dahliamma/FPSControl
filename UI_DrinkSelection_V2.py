@@ -484,8 +484,6 @@ master.wm_attributes("-fullscreen", True)
 lights = LEDactivate(0, 3) #Creating the LED object as blue, blinking initially
 led_thread = threading.Thread(name='LED_Control', target=lights.led_work) #Starting led_work in the background
 led_thread.start()
-scanner = FingerPrintScanner()
-cur_user = User()
 
 #master.config(background = "#FFFFFF") #Background UI color
 
@@ -510,6 +508,8 @@ xx.set(False)
 
 
 def newuser_protocol():
+    cur_user = User()
+    scanner = FingerPrintScanner()
     Namebox.insert(0,"Select Name...")      #Load first index as "Select Name..."
     unregistered_users = cur_user._unregistered_users
     for name in unregistered_users:     #Load up Namebox with unregistered users
@@ -537,6 +537,8 @@ def newuser_continue():
 
 #SIGN IN USER PROTOCOL
 def signin_protocol():
+    cur_user = User()
+    scanner = FingerPrintScanner()
     tkMessageBox.showinfo("Sign In","Welcome back.\nPlease use the scanner to sign in.")
     #scanner.finger_identify()
     scanner._idthread = threading.Thread(name='identify', target=scanner.finger_identify)
