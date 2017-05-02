@@ -569,6 +569,7 @@ def newuser_continue():
             tuple = Namebox.curselection()
             index = tuple[0]
         if not index == 0:
+            pdb.set_trace()
             cur_user.user_register(index, scanner._finger_number)
             pdb.set_trace()
             x = cur_user._first_name + ' ' + cur_user._last_name
