@@ -559,7 +559,6 @@ def signin_continue():
         accept = True
         cur_user.user_recall(identified_finger)
         sleep(1)
-        pdb.set_trace()
         volume_value.set(cur_user._volume)
         strength_value.set(cur_user._strength)
         Textbox_update("Welcome, " +  cur_user._first_name + ' ' + cur_user._last_name + ".\n You can now order your drink.")
