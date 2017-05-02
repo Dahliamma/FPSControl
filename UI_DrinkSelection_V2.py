@@ -284,7 +284,7 @@ class FingerPrintScanner():
         if self._true_scan_number == 0:
             self._true_scan_number = 200
         signin_continue()
-        return self._true_scan_number[0]
+        return self._true_scan_number[0][0]
 
 class User():
     """
