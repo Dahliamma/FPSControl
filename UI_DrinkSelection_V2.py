@@ -604,7 +604,7 @@ def signin_protocol():
 
 def signin_continue():
     check = False
-    identified_finger = scanner._true_scan_number
+    identified_finger = scanner._true_scan_number[0][0]
     if not identified_finger == 200:
         check = True
     else:
