@@ -572,7 +572,7 @@ def newuser_continue():
             pdb.set_trace()
             cur_user.user_register(index, scanner._finger_number)
             pdb.set_trace()
-            x = cur_user._first_name + ' ' + cur_user._last_name
+            x = cur_user._unregistered_users[index-1]
             Textbox_update("Welcome, " + x + ".\n You can now order your drink.")
     else:
         # LED.Solid(1,3,100,100,100)   #Solid red LED for 3 sec
