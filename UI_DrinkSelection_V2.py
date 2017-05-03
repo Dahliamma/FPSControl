@@ -569,8 +569,14 @@ def signin_continue():
         while cur_user._first_name == None:
             cur_user.user_recall(identified_finger)
             sleep(2)
-        volume_value.set(cur_user._volume)
-        strength_value.set(cur_user._strength)
+        if not cur_user._volume == None:
+            volume_value.set(cur_user._volume)
+        else:
+            volume_value.set(8)
+        if not cur_user._strength == None:
+            strength_value.set(cur_user._strength)
+        else:
+            strength_value.set(2)
         Textbox_update("Welcome, " +  cur_user._first_name + ' ' + cur_user._last_name + ".\n You can now order your drink.")
     else:
         accept = False
