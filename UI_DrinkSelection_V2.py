@@ -282,9 +282,11 @@ class FingerPrintScanner():
         self.fps.SetLED(False)
         #print('Identified ID: ' + str(self._true_scan_number))
         if self._true_scan_number[0][0] == 0:
-            self._true_scan_number[0][0] = 200
+            self._true_scan_number = 200
+        else:
+            self._true_scan_number = self._true_scan_number[0][0]
         signin_continue()
-        return self._true_scan_number[0][0]
+        return self._true_scan_number
 
 class User():
     """
@@ -557,7 +559,7 @@ def signin_protocol():
 
 def signin_continue():
     check = False
-    identified_finger = scanner._true_scan_number[0][0]
+    identified_finger = scanner._true_scan_number
     if not identified_finger == 200:
         check = True
     else:
