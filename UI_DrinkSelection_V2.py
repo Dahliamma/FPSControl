@@ -282,7 +282,7 @@ class FingerPrintScanner():
         self.fps.SetLED(False)
         #print('Identified ID: ' + str(self._true_scan_number))
         if self._true_scan_number[0][0] == 0:
-            self._true_scan_number = 200
+            self._true_scan_number[0][0] = 200
         signin_continue()
         return self._true_scan_number[0][0]
 
