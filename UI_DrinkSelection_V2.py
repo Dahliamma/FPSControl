@@ -558,6 +558,7 @@ def signin_protocol():
 def signin_continue():
     check = False
     identified_finger = scanner._true_scan_number[0][0]
+    pdb.set_trace()
     if not identified_finger == 200:
         check = True
     else:
