@@ -610,7 +610,11 @@ def brew_trigger(volume_value,strength_value):
                 offense = True
             else:
                 offense = False
-            cur_user.user_update(offense, strength_value, volume_value)
+            store_pref = tkMessageBox.askyesno("Store Preferences?", "Would you like to store this drink for next time?")
+            if store_pref:
+                cur_user.user_update(offense, strength_value, volume_value)
+            else:
+                cur_user.user_update(offense, cur_user._strength, cur_user._volume)
         elif not accept and cur_user._status > 2:
             tkMessageBox.showerror('You are banned.', 'You have been banned from using this coffee machine due to not cleaning the filter 3 times.')
         else:
